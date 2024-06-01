@@ -1,0 +1,22 @@
+.shiftPosition{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.positionSize{
+    width: 20px;
+}
+
+.scrollCart{
+    height: 700px;
+    scrollbar-color: rgba(133, 133, 173, 1) rgba(47, 47, 55, 1);
+    scrollbar-width: thin;
+    overflow-y: scroll;
+    padding-left: 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}

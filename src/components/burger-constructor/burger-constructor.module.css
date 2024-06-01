@@ -1,0 +1,16 @@
+.priceBlock {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-top: 40px;
+}
+
+.priceBlock svg{
+    width: 33px;
+    height: auto;
+    margin-left: 10px;
+}
+
+.priceBlock button{
+    margin-left: 40px;
+}

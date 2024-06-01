@@ -1,0 +1,34 @@
+.header{
+    display: flex;
+    align-items: center; 
+    width: 1280px;
+    height: 88px;
+    margin: auto;
+    gap: 0px;
+}
+
+.navigatorBlock{
+    display: flex;
+    justify-content: center;
+    padding: 16px 20px 16px 20px;
+    gap: 8px;
+}
+
+.doubleNav{
+    display: flex;
+    gap: 8px;
+}
+
+.newPage{
+    text-decoration: none;
+    color: rgba(133, 133, 173, 1);
+}
+
+.logo{
+    margin-left: 112px;
+    margin-right: 289px;
+}
+
+.active{
+    color: rgba(242, 242, 243, 1);
+}

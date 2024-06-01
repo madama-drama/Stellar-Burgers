@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.burger-containers{
+  width: 1280px;
+  margin: auto;
+}
+
+.main-sections{
+  display: flex;
+  gap: 64px;
+}
