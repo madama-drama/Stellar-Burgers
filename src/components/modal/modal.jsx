@@ -7,7 +7,7 @@ import { ModalOverlay } from "../modal-overlay/modal-overlay";
 
 const modalsRoot = document.getElementById("react-modals");
 
-export const Modal = ({title, children, onClose}) => {
+export const Modal = ({ title, children, onClose }) => {
   React.useEffect(() => {
     const closeOnEscape = (e) => {
       if (e.key === "Escape") {
