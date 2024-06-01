@@ -1,40 +1,60 @@
 import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ShopingCartStyle from "./shoping-cart.module.css";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-export const ShopingCart = ({ingredients}) => {
-  let PositionList = ingredients.map((ingr, i) => {
-    let type = undefined;
+export const ShopingCart = ({ ingredients }) => {
+  if (ingredients.length === 0) {
+    return null;
+  }
+  debugger;
+  let firstBun = (
+    <ConstructorElement
+      isLocked={true}
+      type="top"
+      thumbnail={ingredients[0].image_mobile}
+      text={`${ingredients[0].name} (верх)`}
+      price={ingredients[0].price}
+    />
+  );
 
-    if (i === 0) {
-      type = "top";
-    } else if (i === ingredients.length - 1) {
-      type = "bottom";
-    }
+  let lastBun = (
+    <ConstructorElement
+      isLocked={true}
+      type="bottom"
+      thumbnail={ingredients[0].image_mobile}
+      text={`${ingredients[0].name} (низ)`}
+      price={ingredients[0].price}
+    />
+  );
 
-    return (
-      <div className={ShopingCartStyle.shiftPosition}>
-        <div className={ShopingCartStyle.positionSize}>{!type && <DragIcon type="primary" />}</div>
-        <ConstructorElement
-          isLocked={Boolean(type)}
-          type={type}
-          thumbnail={ingr.image_mobile}
-          text={ingr.name}
-          price={ingr.price}
-        />
-      </div>
-    );
-  });
+  let positionList = ingredients
+    .slice(1, ingredients.length)
+    .map((ingr) => {
+      return (
+        <div className={ShopingCartStyle.shiftPosition}>
+          <div className={ShopingCartStyle.positionSize}>
+            {<DragIcon type="primary" />}
+          </div>
+          <ConstructorElement
+            thumbnail={ingr.image_mobile}
+            text={ingr.name}
+            price={ingr.price}
+          />
+        </div>
+      );
+    });
 
   return (
-    <div className={ShopingCartStyle.scrollCart}>
-      {PositionList}
-    </div>
+    <>
+      <div className="pl-7">{firstBun}</div>
+      <div className={ShopingCartStyle.scrollCart}>{positionList}</div>
+      <div className="pl-7">{lastBun}</div>
+    </>
   );
 };
 
-ShopingCart.propTypes ={
+ShopingCart.propTypes = {
   ingredients: PropTypes.array.isRequired
-}
+};

@@ -3,6 +3,7 @@ import CardIngredientStyle from "./card-ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { IngredientDetails } from "../../ingredient-details/ingredient-details";
+import { Modal } from "../../modal/modal";
 
 export const CardIngredient = ({ ingredient }) => {
   const [opened, setOpened] = React.useState(false);
@@ -18,7 +19,7 @@ export const CardIngredient = ({ ingredient }) => {
   return (
     <>
       <button onClick={onClick} className={CardIngredientStyle.card}>
-        <img src={ingredient.image} alt="" />
+        <img src={ingredient.image} alt="ингредиент" />
         <p
           className={`${CardIngredientStyle.price} text text_type_digits-default`}
         >
@@ -30,12 +31,14 @@ export const CardIngredient = ({ ingredient }) => {
         </h3>
       </button>
       {opened && (
-        <IngredientDetails ingredient={ingredient} onClose={onClose} />
+        <Modal title={"Детали ингредиента"} onClose={onClose}>
+          <IngredientDetails ingredient={ingredient} />
+        </Modal>
       )}
     </>
   );
 };
 
 CardIngredient.propTypes = {
-  ingredient: PropTypes.array.isRequired
+  ingredient: PropTypes.array.isRequired,
 };

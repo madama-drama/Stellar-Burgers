@@ -9,7 +9,7 @@ export const BurgerIngredients = ({ingredients}) => {
 
   return (
     <section className={ingredientStyle.container}>
-      <div style={{ display: "flex" }}>
+      <div className={ingredientStyle.tabs}>
         <Tab value="one" active={current === "one"} onClick={setCurrent}>
           Булки
         </Tab>

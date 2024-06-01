@@ -10,3 +10,7 @@
   overflow-y: scroll;
   margin-bottom: 16px;
 }
+
+.tabs{
+  display: flex;
+}
