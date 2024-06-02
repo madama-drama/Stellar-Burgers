@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export const IngredientDetails = ({ ingredient }) => {
   return (
     <div className={IngredientStyle.blockAboutFood}>
-      <img src={ingredient.image_large} alt="ингредиент" />
+      <img src={ingredient.image_large} alt={ingredient.name} />
       <h2 className="text text_type_main-medium">{ingredient.name}</h2>
       <ul className={IngredientStyle.foodEnergyList}>
         <li>

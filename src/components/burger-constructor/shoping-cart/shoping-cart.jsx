@@ -35,7 +35,7 @@ export const ShopingCart = ({ ingredients }) => {
     }
 
     return (
-      <div className={ShopingCartStyle.shiftPosition}>
+      <div className={ShopingCartStyle.shiftPosition} key={ingr._id}>
         <div className={ShopingCartStyle.positionSize}>
           {<DragIcon type="primary" />}
         </div>

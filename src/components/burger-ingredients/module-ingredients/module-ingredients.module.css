@@ -4,3 +4,7 @@
     gap: 24px;
     flex-wrap: wrap;
   }
+
+  .moduleTitle{
+    text-align: left;
+  }

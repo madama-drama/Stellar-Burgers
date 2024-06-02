@@ -6,11 +6,11 @@ import ModuleIngredientsStyle from "./module-ingredients.module.css";
 export const ModuleIngredients = ({ ingredients, type, title }) => {
   const ingradientsArray = ingredients
     .filter((sandwichItem) => sandwichItem.type === type)
-    .map((ingr) => <CardIngredient ingredient={ingr} />);
+    .map((ingr) => <CardIngredient ingredient={ingr} key={ingr._id} />);
 
   return (
     <div>
-      <h2 align="left" className={`text text_type_main-medium mt-10 mb-6`}>
+      <h2 className={`text text_type_main-medium mt-10 mb-6 ${ModuleIngredientsStyle.moduleTitle}`}>
         {title}
       </h2>
       <div className={ModuleIngredientsStyle.cardContainer}>

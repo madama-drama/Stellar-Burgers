@@ -19,7 +19,7 @@ export const CardIngredient = ({ ingredient }) => {
   return (
     <>
       <button onClick={onClick} className={CardIngredientStyle.card}>
-        <img src={ingredient.image} alt="ингредиент" />
+        <img src={ingredient.image} alt={ingredient.name}/>
         <p
           className={`${CardIngredientStyle.price} text text_type_digits-default`}
         >
@@ -40,5 +40,5 @@ export const CardIngredient = ({ ingredient }) => {
 };
 
 CardIngredient.propTypes = {
-  ingredient: PropTypes.array.isRequired,
+  ingredient: PropTypes.object.isRequired,
 };

@@ -1,27 +1,32 @@
 import React from "react";
-import "./app.css";
 import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor";
 import { requestIngredients } from "../../requests";
+import appStyle from "./app.module.css";
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
 
   React.useEffect(() => {
-    requestIngredients().then((result) => {
-      setIngredients(result.data);
-    });
+    requestIngredients()
+      .then((result) => {
+        setIngredients(result.data);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIngredients([]);
+      });
   }, []);
 
   return (
-    <div className="App">
+    <div className={appStyle.App}>
       <AppHeader />
-      <main className="burger-containers">
-        <h1 align="left" className="text text_type_main-large mb-10 mt-5">
+      <main className={appStyle.burgerContainers}>
+        <h1 className="text text_type_main-large mb-10 mt-5">
           Соберите бургер
         </h1>
-        <div className="main-sections">
+        <div className={appStyle.mainSections}>
           <BurgerIngredients ingredients={ingredients} />
           <BurgerConstructor ingredients={ingredients} />
         </div>
