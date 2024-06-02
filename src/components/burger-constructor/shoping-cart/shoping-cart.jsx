@@ -8,7 +8,7 @@ export const ShopingCart = ({ ingredients }) => {
   if (ingredients.length === 0) {
     return null;
   }
-  debugger;
+
   let firstBun = (
     <ConstructorElement
       isLocked={true}
@@ -29,22 +29,24 @@ export const ShopingCart = ({ ingredients }) => {
     />
   );
 
-  let positionList = ingredients
-    .slice(1, ingredients.length)
-    .map((ingr) => {
-      return (
-        <div className={ShopingCartStyle.shiftPosition}>
-          <div className={ShopingCartStyle.positionSize}>
-            {<DragIcon type="primary" />}
-          </div>
-          <ConstructorElement
-            thumbnail={ingr.image_mobile}
-            text={ingr.name}
-            price={ingr.price}
-          />
+  let positionList = ingredients.slice(1, ingredients.length).map((ingr) => {
+    if (ingr.type === "bun") {
+      return null;
+    }
+
+    return (
+      <div className={ShopingCartStyle.shiftPosition}>
+        <div className={ShopingCartStyle.positionSize}>
+          {<DragIcon type="primary" />}
         </div>
-      );
-    });
+        <ConstructorElement
+          thumbnail={ingr.image_mobile}
+          text={ingr.name}
+          price={ingr.price}
+        />
+      </div>
+    );
+  });
 
   return (
     <>
@@ -56,5 +58,5 @@ export const ShopingCart = ({ ingredients }) => {
 };
 
 ShopingCart.propTypes = {
-  ingredients: PropTypes.array.isRequired
+  ingredients: PropTypes.array.isRequired,
 };
