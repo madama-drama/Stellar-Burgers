@@ -1,0 +1,28 @@
+.windowSize {
+  width: fit-content;
+  min-width: 720px;
+  min-height: 538px;
+  padding: 40px;
+  box-sizing: border-box;
+  border-radius: 40px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(28, 28, 33, 1);
+}
+
+.titleBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.titleCard {
+  text-align: left;
+}
+
+.buttonClose {
+  all: unset;
+  background-color: rgba(28, 28, 33, 1);
+}

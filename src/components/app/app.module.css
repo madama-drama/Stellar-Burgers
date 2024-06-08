@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.burgerContainers {
+  width: 1280px;
+  margin: auto;
+}
+
+.burgerContainers h1{
+  text-align: left; 
+}
+
+.mainSections {
+  display: flex;
+  gap: 64px;
+}

@@ -1,0 +1,26 @@
+.foodEnergyList{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 32px;
+
+}
+
+.blockAboutFood{
+    width: 520px;
+    margin: auto;
+
+}
+
+.blockAboutFood h2 {
+    text-align: center;
+}
+
+.energyTitle{
+    color: rgba(133, 133, 173, 1);
+}
+
+.energyValue{
+    text-align: center;
+}
