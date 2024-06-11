@@ -8,4 +8,9 @@
 .card {
     all: unset;
     width: 272px;
+    position: relative;
+  }
+
+  .counterPosition{
+
   }

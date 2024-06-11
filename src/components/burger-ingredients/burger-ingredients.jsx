@@ -2,9 +2,8 @@ import React from "react";
 import ingredientStyle from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModuleIngredients } from "./module-ingredients/module-ingredients";
-import PropTypes from 'prop-types';
 
-export const BurgerIngredients = ({ingredients}) => {
+export const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("one");
 
   return (
@@ -22,16 +21,18 @@ export const BurgerIngredients = ({ingredients}) => {
       </div>
 
       <div className={ingredientStyle.products}>
-        <ModuleIngredients ingredients={ingredients} type="bun" title="Булки" />
+        <ModuleIngredients type="bun" title="Булки" />
 
-        <ModuleIngredients ingredients={ingredients} type="sauce" title="Соусы" />
+        <ModuleIngredients
+          type="sauce"
+          title="Соусы"
+        />
 
-        <ModuleIngredients ingredients={ingredients} type="main" title="Начинки" />
+        <ModuleIngredients
+          type="main"
+          title="Начинки"
+        />
       </div>
     </section>
   );
 };
-
-BurgerIngredients.propTypes={
-  ingredients: PropTypes.array.isRequired,
-}

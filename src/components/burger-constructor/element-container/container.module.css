@@ -1,0 +1,10 @@
+.positionSize {
+  width: 20px;
+}
+
+.shiftPosition {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-right: 8px;
+}

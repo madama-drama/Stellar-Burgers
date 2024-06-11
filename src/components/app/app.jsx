@@ -2,22 +2,18 @@ import React from "react";
 import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor";
-import { requestIngredients } from "../../requests";
 import appStyle from "./app.module.css";
+import { useDispatch } from "react-redux";
+import { getIngredientsRequest } from "../../services/burger-ingredients";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const [ingredients, setIngredients] = React.useState([]);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    requestIngredients()
-      .then((result) => {
-        setIngredients(result.data);
-      })
-      .catch((err) => {
-        console.error(err);
-        setIngredients([]);
-      });
-  }, []);
+    dispatch(getIngredientsRequest());
+  }, [dispatch]);
 
   return (
     <div className={appStyle.App}>
@@ -26,10 +22,12 @@ function App() {
         <h1 className="text text_type_main-large mb-10 mt-5">
           Соберите бургер
         </h1>
-        <div className={appStyle.mainSections}>
-          <BurgerIngredients ingredients={ingredients} />
-          <BurgerConstructor ingredients={ingredients} />
-        </div>
+        <DndProvider backend={HTML5Backend}>
+          <div className={appStyle.mainSections}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+          </div>
+        </DndProvider>
       </main>
     </div>
   );
