@@ -8,18 +8,27 @@ import ConstructorStyle from "./burger-constructor.module.css";
 import { OrderDetails } from "../order-details/order-details";
 import { useSelector, useDispatch } from "react-redux";
 import { postOrderRequest } from "../../services/order";
+import { useAuth } from "../../services/auth";
+import { useNavigate } from "react-router-dom";
 
 export const BurgerConstructor = () => {
+  const auth = useAuth()
+  const navigate = useNavigate()
   const orderCart = useSelector((store) => store.burgerConstructor.ingredients);
   const dispatch = useDispatch();
 
   const [order, setOrder] = React.useState(false);
 
   const onClick = () => {
+    if(auth.user){
     setOrder(true);
 
     const orederIds = orderCart.map((ingr) => ingr._id);
     dispatch(postOrderRequest(orederIds));
+    }
+    else{
+      return navigate('/login')
+    }
   };
 
   const onClose = () => {

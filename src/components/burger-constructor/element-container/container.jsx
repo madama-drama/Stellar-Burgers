@@ -37,7 +37,7 @@ export const ElementContainer = ({ ingredient, order }) => {
 
       const yFromCardTop = mouseCoords.y - cardRect.top;
     
-      if (fromOrder < toOrder && yFromCardTop < cardHalfHeight) {
+      if (fromOrder < toOrder && yFromCardTop < cardHalfHeight) {  //???
         return;
       }
 

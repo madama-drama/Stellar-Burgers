@@ -10,9 +10,11 @@ import { useSelector } from "react-redux";
 import CardIngredientStyle from "./card-ingredient.module.css";
 import { IngredientDetails } from "../../ingredient-details/ingredient-details";
 import { Modal } from "../../modal/modal";
+// import { useNavigate } from "react-router-dom";
 
 export const CardIngredient = ({ ingredient }) => {
   const [opened, setOpened] = React.useState(false);
+  // const navigate = useNavigate()
 
   const cart = useSelector((store) => store.burgerConstructor.ingredients);
 
@@ -24,7 +26,15 @@ export const CardIngredient = ({ ingredient }) => {
     item: { id: ingredient._id },
   });
 
-  const onClick = () => setOpened(true);
+
+  const onClick = () => {
+    // navigate(`/ingredient/${ingredient._id}`, {replace: true}); 
+
+    //navigate перенаправляет на другую страницу, 
+    //а не просто меняет адрес, как сказано в задании
+    
+    setOpened(true)
+  };
   const onClose = () => setOpened(false);
 
   return (

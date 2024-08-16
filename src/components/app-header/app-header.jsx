@@ -1,5 +1,6 @@
 import React from "react";
 import headerStyle from "./app-header.module.css";
+import { NavLink } from "react-router-dom";
 import {
   ListIcon,
   ProfileIcon,
@@ -8,21 +9,49 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export const AppHeader = () => {
+
   return (
     <header className={headerStyle.header}>
       <nav className={headerStyle.doubleNav}>
         <div className={headerStyle.navigatorBlock}>
-          <BurgerIcon type="primary" />
-          <a href="#s" className={`${headerStyle.newPage} text text_type_main-default ${headerStyle.active}`}>
-            Конструктор
-          </a>
+          <NavLink to="/">
+            {({ isActive }) =>
+              isActive ? (
+                <BurgerIcon type="primary" />
+              ) : (
+                <BurgerIcon type="secondary" />
+              )
+            }
+          </NavLink>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? headerStyle.active : headerStyle.passive
+            }
+          >
+            <p className="text text_type_main-default">Конструктор</p>
+          </NavLink>
         </div>
 
         <div className={headerStyle.navigatorBlock}>
-          <ListIcon type="secondary" />
-          <a href="#s" className={`${headerStyle.newPage} text text_type_main-default passive`}>
+          <NavLink to="/list-order">
+            {({ isActive }) =>
+              isActive ? (
+                <ListIcon type="primary" />
+              ) : (
+                <ListIcon type="secondary" />
+              )
+            }
+          </NavLink>
+
+          <NavLink
+            to="/list-order"
+            className={({ isActive }) =>
+              isActive ? headerStyle.active : headerStyle.passive
+            }
+          >
             Лента заказов
-          </a>
+          </NavLink>
         </div>
       </nav>
 
@@ -31,10 +60,24 @@ export const AppHeader = () => {
       </div>
 
       <div className={headerStyle.navigatorBlock}>
-        <ProfileIcon type="secondary" />
-        <a href="#s" className={`${headerStyle.newPage} text text_type_main-default`}>
+        <NavLink to="/profile">
+          {({ isActive }) =>
+            isActive ? (
+              <ProfileIcon type="primary" />
+            ) : (
+              <ProfileIcon type="secondary" />
+            )
+          }
+        </NavLink>
+
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            isActive ? headerStyle.active : headerStyle.passive
+          }
+        >
           Личный кабинет
-        </a>
+        </NavLink>
       </div>
     </header>
   );
