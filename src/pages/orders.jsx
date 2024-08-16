@@ -6,7 +6,7 @@ import { useAuth } from "../services/auth";
 export const Orders = () => {
   const auth = useAuth();
 
-  let exit = useCallback(() => auth.logOut, [auth]);
+  let exit = useCallback(() => auth.logOut(), [auth]);
 
   return (
     <div className={Styles.leftBlock}>

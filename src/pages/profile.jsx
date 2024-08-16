@@ -32,7 +32,7 @@ export const Profile = () => {
     setValue(initial);
   };
 
-  let exit = useCallback(auth.logOut, []);
+  let exit = useCallback(()=>{auth.logOut()}, [auth]);
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
