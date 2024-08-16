@@ -1,62 +1,68 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ShopingCartStyle from "./shoping-cart.module.css";
-import PropTypes from "prop-types";
+import { useDrop } from "react-dnd";
+import { useSelector, useDispatch } from "react-redux";
 
-export const ShopingCart = ({ ingredients }) => {
-  if (ingredients.length === 0) {
+import { actions } from "../../../services/burger-constructor";
+import { ElementContainer } from "../element-container/container";
+import ShopingCartStyle from "./shoping-cart.module.css";
+
+export const ShopingCart = () => {
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
+  const cart = useSelector((store) => store.burgerConstructor.ingredients);
+
+  const dispatch = useDispatch();
+
+  // добавляем начальную булку
+  useEffect(() => {
+    if (ingredients.length && !cart[0]) {
+      const firstBun = ingredients.find((i) => i.type === "bun");
+
+      dispatch(actions.add(firstBun));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ingredients, dispatch]);
+
+  const handleAdd = ({ id }) => {
+    dispatch(actions.add(ingredients.find((ingr) => ingr._id === id)));
+  };
+
+  const [, dropTargetRef] = useDrop({
+    accept: "ingredient",
+    drop: handleAdd,
+  });
+
+  if (cart.length === 0) {
     return null;
   }
 
-  let firstBun = (
-    <ConstructorElement
-      isLocked={true}
-      type="top"
-      thumbnail={ingredients[0].image_mobile}
-      text={`${ingredients[0].name} (верх)`}
-      price={ingredients[0].price}
-    />
-  );
-
-  let lastBun = (
-    <ConstructorElement
-      isLocked={true}
-      type="bottom"
-      thumbnail={ingredients[0].image_mobile}
-      text={`${ingredients[0].name} (низ)`}
-      price={ingredients[0].price}
-    />
-  );
-
-  let positionList = ingredients.slice(1, ingredients.length).map((ingr) => {
-    if (ingr.type === "bun") {
-      return null;
-    }
-
-    return (
-      <div className={ShopingCartStyle.shiftPosition} key={ingr._id}>
-        <div className={ShopingCartStyle.positionSize}>
-          {<DragIcon type="primary" />}
-        </div>
-        <ConstructorElement
-          thumbnail={ingr.image_mobile}
-          text={ingr.name}
-          price={ingr.price}
-        />
-      </div>
-    );
+  const positionList = cart.slice(1, cart.length).map((ingr, index) => {
+    return <ElementContainer ingredient={ingr} order={index + 1} key={ingr.id} />;
   });
 
   return (
-    <>
-      <div className="pl-7">{firstBun}</div>
-      <div className={ShopingCartStyle.scrollCart}>{positionList}</div>
-      <div className="pl-7">{lastBun}</div>
-    </>
-  );
-};
+    <div ref={dropTargetRef}>
+      <div className="pl-7">
+        <ConstructorElement
+          isLocked={true}
+          type="top"
+          thumbnail={cart[0].image_mobile}
+          text={`${cart[0].name} (верх)`}
+          price={cart[0].price}
+        />
+      </div>
 
-ShopingCart.propTypes = {
-  ingredients: PropTypes.array.isRequired,
+      <div className={ShopingCartStyle.scrollCart}>{positionList}</div>
+
+      <div className="pl-7">
+        <ConstructorElement
+          isLocked={true}
+          type="bottom"
+          thumbnail={cart[0].image_mobile}
+          text={`${cart[0].name} (низ)`}
+          price={cart[0].price}
+        />
+      </div>
+    </div>
+  );
 };

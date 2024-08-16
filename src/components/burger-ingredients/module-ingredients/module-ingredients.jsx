@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { CardIngredient } from "../card-ingredient/card-ingredient";
 import ModuleIngredientsStyle from "./module-ingredients.module.css";
+import { useSelector } from "react-redux";
 
-export const ModuleIngredients = ({ ingredients, type, title }) => {
+export const ModuleIngredients = ({ type, title }) => {
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
+
   const ingradientsArray = ingredients
     .filter((sandwichItem) => sandwichItem.type === type)
     .map((ingr) => <CardIngredient ingredient={ingr} key={ingr._id} />);
@@ -21,7 +24,6 @@ export const ModuleIngredients = ({ ingredients, type, title }) => {
 };
 
 ModuleIngredients.propTypes = {
-  ingredients: PropTypes.array.isRequired,
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };

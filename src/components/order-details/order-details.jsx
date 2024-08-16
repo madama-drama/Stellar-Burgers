@@ -3,14 +3,16 @@ import { Modal } from "../modal/modal";
 import OrderStyle from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
 
 
 export const OrderDetails = (props) => {
+  const orderNumber = useSelector((store)=> store.order.order.number);
   return (
     <Modal onClose={props.onClose}>
       <div className={OrderStyle.orderBlock}>
         <p className={`text text_type_digits-large mb-8 ${OrderStyle.shadowTitle}`}>
-          123456
+          {orderNumber}
         </p>
         <p className="text text_type_main-medium">идентификатор заказа</p>
         <div className={OrderStyle.underGIF}>
