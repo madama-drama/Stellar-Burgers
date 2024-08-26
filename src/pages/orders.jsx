@@ -1,12 +1,15 @@
-import React, { useCallback } from "react";
+import React from "react";
 import Styles from "./order.module.css";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../services/auth";
+import { useDispatch } from "react-redux";
+import { getLogOutRequest } from "../services/auth2";
 
 export const Orders = () => {
-  const auth = useAuth();
+const dispatch= useDispatch();
 
-  let exit = useCallback(() => auth.logOut(), [auth]);
+  const exit =()=>{
+    dispatch(getLogOutRequest())
+  }
 
   return (
     <div className={Styles.leftBlock}>

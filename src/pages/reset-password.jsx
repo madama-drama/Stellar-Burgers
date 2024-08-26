@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -7,26 +7,28 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Styles from "./reset-password.module.css";
-import { useAuth } from "../services/auth";
+import { useDispatch } from "react-redux";
+import { getResetPasswordRequest } from "../services/auth2";
 
 export const ResetPassword = () => {
-  const auth = useAuth();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const inputRef = React.useRef(null);
   const [code, setCode] = React.useState("");
   const [value, setValue] = React.useState("");
 
-  let resetPass = useCallback(
-    async (evt) => {
-      evt.preventDefault();
-      const success = await auth.resetPassword({ password: value });
-      if(success){
-        navigate("/login");
-      }
-    },
-    [auth, value, navigate]
-  );
+  const resetPass = (evt) => {
+    evt.preventDefault();
+    dispatch(
+      getResetPasswordRequest({
+        password: value,
+        onSuccess: () => {
+          navigate("/login");
+        },
+      })
+    );
+  };
 
   return (
     <div className={Styles.container}>
@@ -34,40 +36,37 @@ export const ResetPassword = () => {
         Восстановление пароля
       </h1>
 
-      <div className="mb-6">
-        <PasswordInput
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-          name={"password"}
-          extraClass="mb-2"
-        />
-      </div>
+      <form onSubmit={resetPass} className={Styles.form}>
+        <div className="mb-6">
+          <PasswordInput
+            onChange={(e) => setValue(e.target.value)}
+            value={value}
+            name={"password"}
+            extraClass="mb-2"
+          />
+        </div>
 
-      <div className="mb-6">
-        <Input
-          type={"text"}
-          placeholder={"Введите код из письма"}
-          onChange={(e) => setCode(e.target.code)}
-          value={code}
-          name={"name"}
-          error={false}
-          ref={inputRef}
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-        />
-      </div>
+        <div className="mb-6">
+          <Input
+            type={"text"}
+            placeholder={"Введите код из письма"}
+            onChange={(e) => setCode(e.target.code)}
+            value={code}
+            name={"name"}
+            error={false}
+            ref={inputRef}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+          />
+        </div>
 
-      <div className="mb-20">
-        <Button
-          onClick={resetPass}
-          htmlType="button"
-          type="primary"
-          size="large"
-        >
-          Сохранить
-        </Button>
-      </div>
+        <div className="mb-20">
+          <Button htmlType="submit" type="primary" size="large">
+            Сохранить
+          </Button>
+        </div>
+      </form>
 
       <div className={Styles.linkBox}>
         <p className="text text_type_main-default text_color_inactive">

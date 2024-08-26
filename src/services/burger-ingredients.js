@@ -4,15 +4,9 @@ import { requestIngredients } from "./requests";
 export const getIngredientsRequest = createAsyncThunk(
   "burgerIngredients/getIngredientsRequest",
   async () => {
-    try {
-      const result = await requestIngredients();
+    const result = await requestIngredients();
 
-      return result.data;
-    } catch (e) {
-
-      console.error(e);
-      return [];
-    }
+    return result.data;
   }
 );
 
@@ -26,6 +20,12 @@ const ingredientSlice = createSlice({
     builder.addCase(getIngredientsRequest.fulfilled, (state, action) => {
       state.ingredients = action.payload;
     });
+    builder.addCase(getIngredientsRequest.rejected, (e) => {
+      console.error(e);
+      return [];
+    });
+
+    
   },
 });
 

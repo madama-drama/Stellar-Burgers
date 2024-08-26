@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop } from "react-dnd";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,15 +13,17 @@ export const ShopingCart = () => {
 
   const dispatch = useDispatch();
 
-  // добавляем начальную булку
-  useEffect(() => {
-    if (ingredients.length && !cart[0]) {
-      const firstBun = ingredients.find((i) => i.type === "bun");
 
-      dispatch(actions.add(firstBun));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ingredients, dispatch]);
+
+  // добавляем начальную булку
+  // useEffect(() => {
+
+  // const firstBun = ingredients.find((i) => i.type === "bun");
+
+  // dispatch(actions.add(firstBun));
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [ingredients, dispatch]);
 
   const handleAdd = ({ id }) => {
     dispatch(actions.add(ingredients.find((ingr) => ingr._id === id)));
@@ -32,37 +34,45 @@ export const ShopingCart = () => {
     drop: handleAdd,
   });
 
-  if (cart.length === 0) {
-    return null;
-  }
-
   const positionList = cart.slice(1, cart.length).map((ingr, index) => {
-    return <ElementContainer ingredient={ingr} order={index + 1} key={ingr.id} />;
+    return (
+      <ElementContainer ingredient={ingr} order={index + 1} key={ingr.id} />
+    );
   });
 
   return (
     <div ref={dropTargetRef}>
-      <div className="pl-7">
-        <ConstructorElement
-          isLocked={true}
-          type="top"
-          thumbnail={cart[0].image_mobile}
-          text={`${cart[0].name} (верх)`}
-          price={cart[0].price}
-        />
-      </div>
+      {!cart.length ? (
+        <div className={ShopingCartStyle.blockText}>
+          <p className="text text_type_main-medium text_color_inactive">
+            Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className="pl-7">
+            <ConstructorElement
+              isLocked={true}
+              type="top"
+              thumbnail={cart[0].image_mobile}
+              text={`${cart[0].name} (верх)`}
+              price={cart[0].price}
+            />
+          </div>
 
-      <div className={ShopingCartStyle.scrollCart}>{positionList}</div>
+          <div className={ShopingCartStyle.scrollCart}>{positionList}</div>
 
-      <div className="pl-7">
-        <ConstructorElement
-          isLocked={true}
-          type="bottom"
-          thumbnail={cart[0].image_mobile}
-          text={`${cart[0].name} (низ)`}
-          price={cart[0].price}
-        />
-      </div>
+          <div className="pl-7">
+            <ConstructorElement
+              isLocked={true}
+              type="bottom"
+              thumbnail={cart[0].image_mobile}
+              text={`${cart[0].name} (низ)`}
+              price={cart[0].price}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -1,16 +1,18 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Styles from "./register.module.css";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   Button,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useAuth } from "../services/auth";
+import { useDispatch } from "react-redux";
+import { getRegistrRequest } from "../services/auth2";
 
 export const Register = () => {
-  let auth = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const inputRef = React.useRef(null);
 
   const [value, setValue] = useState({ email: "", password: "", name: "" });
@@ -19,21 +21,24 @@ export const Register = () => {
     setValue({ ...value, [evt.target.name]: evt.target.value });
   };
 
-  let regist = useCallback(
-    (evt) => {
-      evt.preventDefault();
-      auth.reg(value);
-    },
-    [auth, value]
-  );
-
-  if (auth.user) {
-    return <Navigate to="/profile" />;
-  }
+  const regist = (evt) => {
+    evt.preventDefault();
+    
+    dispatch(
+      getRegistrRequest({
+        registerData: value,
+        onSuccess: () => {
+          navigate("/profile");
+        },
+      })
+    );
+  };
 
   return (
     <div className={Styles.container}>
       <h1 className="text text_type_main-large mb-6 mt-20">Регистрация</h1>
+      
+      <form onSubmit={regist} className={Styles.form}>
       <div className="mb-6">
         <Input
           type={"text"}
@@ -73,10 +78,11 @@ export const Register = () => {
       </div>
 
       <div className="mb-20">
-        <Button onClick={regist} htmlType="button" type="primary" size="large">
+        <Button htmlType="submit" type="primary" size="large">
           Зарегистрироваться
         </Button>
       </div>
+      </form>
 
       <div className={Styles.linkBox}>
         <p className="text text_type_main-default text_color_inactive">

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import {
@@ -7,37 +7,44 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Styles from "./profile.module.css";
-import { useAuth } from "../services/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { getLogOutRequest, getUpdateDataRequest } from "../services/auth2";
 
 export const Profile = () => {
-  let auth = useAuth();
+  const dispatch = useDispatch();
   const inputRef = React.useRef(null);
 
-  const [value, setValue] = React.useState(auth.user);
-  
-  const initial = auth.user;
+  const initial = useSelector((store) => store.auth.user);
+
+  const [value, setValue] = useState(initial.user);
 
   const [smtChanged, setSmtChanged] = React.useState(false);
+
   const onChange = (evt) => {
     setSmtChanged(true);
     setValue({ ...value, [evt.target.name]: evt.target.value });
   };
 
-  const onSave = useCallback(() => {
-    auth.updateData(value);
-    setSmtChanged(false)
-  }, [auth, value]);
+  const onSave = (e) => {
+    e.preventDefault()
 
-  const onCancel = () => {
-    setValue(initial);
+    dispatch(getUpdateDataRequest(value));
+    setSmtChanged(false);
   };
 
-  let exit = useCallback(()=>{auth.logOut()}, [auth]);
+  const onCancel = (e) => {
+    e.preventDefault()
 
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
+    setValue(initial.user);
+    setSmtChanged(false);
   };
+
+  const exit = () => {
+    dispatch(getLogOutRequest());
+  };
+
+
+
   return (
     <div className={Styles.container}>
       <div className={Styles.leftBlock}>
@@ -70,7 +77,7 @@ export const Profile = () => {
         </p>
       </div>
 
-      <div>
+      <form onSubmit={onSave}>
         <div className="mb-6">
           <Input
             type={"text"}
@@ -81,7 +88,6 @@ export const Profile = () => {
             name={"name"}
             error={false}
             ref={inputRef}
-            onIconClick={onIconClick}
             errorText={"Ошибка"}
             size={"default"}
             extraClass="ml-1"
@@ -98,7 +104,6 @@ export const Profile = () => {
             name={"email"}
             error={false}
             ref={inputRef}
-            onIconClick={onIconClick}
             errorText={"Ошибка"}
             size={"default"}
             extraClass="ml-1"
@@ -115,15 +120,21 @@ export const Profile = () => {
 
         {smtChanged ? (
           <div className={Styles.buttons}>
-            <Button htmlType="button" onClick={onSave}>
-              Сохранить
-            </Button>
-            <Button htmlType="button" onClick={onCancel}>
+            <Button
+              htmlType="button"
+              type="secondary"
+              size="medium"
+              onClick={onCancel}
+            >
               Отмена
+            </Button>
+
+            <Button htmlType="submit">
+              Сохранить
             </Button>
           </div>
         ) : null}
-      </div>
+      </form>
     </div>
   );
 };

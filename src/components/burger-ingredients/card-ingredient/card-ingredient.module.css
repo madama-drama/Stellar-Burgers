@@ -3,6 +3,11 @@
     gap: 8px;
     align-items: center;
     justify-content: center;
+    color: rgba(242, 242, 243, 1);
+}
+
+.name{
+    color: rgba(242, 242, 243, 1);
 }
 
 .card {
@@ -11,6 +16,6 @@
     position: relative;
   }
 
-  .counterPosition{
-
+  .underline{
+    text-decoration: none;
   }

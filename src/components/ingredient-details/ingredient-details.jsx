@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import IngredientStyle from "./ingredient-details.module.css";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getIngredientsRequest } from "../../services/burger-ingredients";
 
-export const IngredientDetails = ({ ingredient }) => {
+export const IngredientDetails = () => {
+
+  const dispatch = useDispatch();
+  const params = useParams();
+
+  useEffect(() => {
+    dispatch(getIngredientsRequest());
+  }, [dispatch]);
+
+  const ingredients = useSelector((store) => store.ingredients.ingredients);
+
+
+  if (ingredients.length === 0) {
+    return null;
+  }
+
+  const ingredient = ingredients.find((value) => value._id === params.ingredientId);
+
+  if (!ingredient) {
+    return null;
+  }
+
   return (
     <div className={IngredientStyle.blockAboutFood}>
       <img src={ingredient.image_large} alt={ingredient.name} />
@@ -55,6 +78,3 @@ export const IngredientDetails = ({ ingredient }) => {
   );
 };
 
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.object.isRequired,
-};
