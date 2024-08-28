@@ -63,6 +63,9 @@ export const getLogOutRequest = createAsyncThunk(
   async () => {
     const res = await logOutRequest();
 
+    window.localStorage.removeItem("access");
+    window.localStorage.removeItem("refresh");
+
     return checkResponse(res);
   }
 );
@@ -141,8 +144,6 @@ const authSlice = createSlice({
       state.load = false;
       state.user = null;
 
-      window.localStorage.removeItem("access");
-      window.localStorage.removeItem("refresh");
     });
     builder.addCase(getLogOutRequest.rejected, handleRejected);
 

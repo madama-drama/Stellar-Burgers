@@ -18,7 +18,7 @@ import {
   Profile,
   Orders,
 } from "./pages";
-import { ProtectedRoutElement } from "./services/protected-rout";
+import { ProtectedRoutElement } from "./components/protected-rout";
 import { useDispatch } from "react-redux";
 import { getAuthorizationRequest } from "./services/auth2";
 import { IngredientDetails } from "./components/ingredient-details/ingredient-details";
