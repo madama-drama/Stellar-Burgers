@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const constructorSlice = createSlice({
   name: "burgerConstructor",
@@ -6,17 +6,24 @@ const constructorSlice = createSlice({
     ingredients: [],
   },
   reducers: {
-    add(state, action) {
-      const newIngr = { ...action.payload };
-      let newId = Math.random();
-      newIngr.id = `${newId}`;
+    add: {
+      reducer: (state, action) => {
+        const { newId, ...ingr } = action.payload;
 
-      if (newIngr.type === "bun") {
-        state.ingredients[0] = newIngr;
-        return;
-      }
+        const newIngr = { ...ingr };
+        newIngr.id = newId;
 
-      state.ingredients = [...state.ingredients, newIngr];
+        if (newIngr.type === "bun") {
+          state.ingredients[0] = newIngr;
+          return;
+        }
+
+        state.ingredients = [...state.ingredients, newIngr];
+      },
+      prepare: (ingr) => {
+        let newId = nanoid();
+        return { payload: { ...ingr, newId } };
+      },
     },
     remove(state, action) {
       state.ingredients = [
@@ -25,8 +32,8 @@ const constructorSlice = createSlice({
     },
     swap(state, { payload }) {
       const a = state.ingredients[payload[0]];
-      
-      state.ingredients[payload[0]] = state.ingredients[payload[1]]
+
+      state.ingredients[payload[0]] = state.ingredients[payload[1]];
       state.ingredients[payload[1]] = a;
     },
   },

@@ -8,11 +8,10 @@ import {
 import { useSelector } from "react-redux";
 
 import CardIngredientStyle from "./card-ingredient.module.css";
-import { IngredientDetails } from "../../ingredient-details/ingredient-details";
-import { Modal } from "../../modal/modal";
+import { Link, useLocation } from "react-router-dom";
 
 export const CardIngredient = ({ ingredient }) => {
-  const [opened, setOpened] = React.useState(false);
+  const location = useLocation();
 
   const cart = useSelector((store) => store.burgerConstructor.ingredients);
 
@@ -24,19 +23,25 @@ export const CardIngredient = ({ ingredient }) => {
     item: { id: ingredient._id },
   });
 
-  const onClick = () => setOpened(true);
-  const onClose = () => setOpened(false);
+  const ingredientId = ingredient._id;
+
 
   return (
-    <>
-      <button
+    <Link className={CardIngredientStyle.underline}
+      key={ingredientId}
+      to={`/ingredients/${ingredientId}`}
+      state={{ background: location }}
+    >
+      <div
         ref={dragRef}
-        onClick={onClick}
         className={CardIngredientStyle.card}
       >
         {counter > 0 && (
-          <div className={CardIngredientStyle.counterPosition}>
-              <Counter count={counter} size={counter <= 99 ? "default" : "small"} />
+          <div>
+            <Counter
+              count={counter}
+              size={counter <= 99 ? "default" : "small"}
+            />
           </div>
         )}
         <img src={ingredient.image} alt={ingredient.name} />
@@ -46,16 +51,16 @@ export const CardIngredient = ({ ingredient }) => {
           {ingredient.price}
           <CurrencyIcon type="primary" />
         </p>
-        <h3 className={`text text_type_main-default mt-2`}>
+        <h3 className={`${CardIngredientStyle.name} text text_type_main-default mt-2`}>
           {ingredient.name}
         </h3>
-      </button>
-      {opened && (
+      </div>
+      {/* {opened && (
         <Modal title={"Детали ингредиента"} onClose={onClose}>
           <IngredientDetails ingredient={ingredient} />
         </Modal>
-      )}
-    </>
+      )} */}
+    </Link>
   );
 };
 
