@@ -33,7 +33,7 @@ export const CardIngredient: FC<ICardProps> = ({ ingredient }) => {
 
 
   return (
-    <Link className={CardIngredientStyle.underline}
+    <Link className={`${CardIngredientStyle.underline} ${CardIngredientStyle.block}`}
       key={ingredientId}
       to={`/ingredients/${ingredientId}`}
       state={{ background: location }}

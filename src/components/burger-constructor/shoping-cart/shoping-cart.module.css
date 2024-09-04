@@ -13,12 +13,10 @@
   margin-bottom: 10px;
 }
 
-.blockText{
+.blockText {
   height: 150px;
   margin-top: 48px;
-  width: 100%;
+  width: 600px;
   display: flex;
   align-self: center;
 }
-
-
