@@ -1,15 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import { Modal } from "../modal/modal";
 import OrderStyle from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
+import { AppStore } from "../../services";
 
+interface IOrderProps{
+  onClose: ()=>void
+}
 
-export const OrderDetails = (props) => {
-  const orderNumber = useSelector((store)=> store.order.order.number);
+export const OrderDetails: FC<IOrderProps> = ({onClose}) => {
+  const orderNumber = useSelector((store: AppStore)=> store.order.order.number);
   return (
-    <Modal onClose={props.onClose}>
+    <Modal onClose={onClose}>
       <div className={OrderStyle.orderBlock}>
         <p className={`text text_type_digits-large mb-8 ${OrderStyle.shadowTitle}`}>
           {orderNumber}
@@ -29,6 +32,3 @@ export const OrderDetails = (props) => {
   );
 };
 
-OrderDetails.propTypes={
-  onClose: PropTypes.func.isRequired
-}

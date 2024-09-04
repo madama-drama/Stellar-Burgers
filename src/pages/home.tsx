@@ -7,8 +7,10 @@ import { getIngredientsRequest } from "../services/burger-ingredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
+import { AppDispatch } from "../services";
+
 export const Homepage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   React.useEffect(() => {
     dispatch(getIngredientsRequest());

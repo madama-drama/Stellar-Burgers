@@ -10,23 +10,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { postOrderRequest } from "../../services/order";
 import { useNavigate } from "react-router-dom";
 
+import { AppStore, AppDispatch } from "../../services";
+
 export const BurgerConstructor = () => {
-  const navigate = useNavigate()
-  const orderCart = useSelector((store) => store.burgerConstructor.ingredients);
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const orderCart = useSelector(
+    (store: AppStore) => store.burgerConstructor.ingredients
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
   const [order, setOrder] = React.useState(false);
-  const user = useSelector((store)=> store.auth.user)
+  const user = useSelector((store: AppStore) => store.auth.user);
 
   const onClick = () => {
-    if(user){
-    setOrder(true);
+    if (user) {
+      setOrder(true);
 
-    const orederIds = orderCart.map((ingr) => ingr._id);
-    dispatch(postOrderRequest(orederIds));
-    }
-    else{
-      return navigate('/login')
+      const ingredientsIds = orderCart.map((ingr) => ingr._id);
+      dispatch(postOrderRequest(ingredientsIds));
+    } else {
+      return navigate("/login");
     }
   };
 

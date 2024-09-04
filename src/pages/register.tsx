@@ -10,18 +10,27 @@ import {
 import { useDispatch } from "react-redux";
 import { getRegistrRequest } from "../services/auth2";
 
+import { AppDispatch } from "../services";
+
+
+export interface IRegist{
+  email: string,
+  password: string,
+  name: string
+}
+
 export const Register = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const inputRef = React.useRef(null);
 
-  const [value, setValue] = useState({ email: "", password: "", name: "" });
+  const [value, setValue] = useState<IRegist>({ email: "", password: "", name: "" });
 
-  const onChange = (evt) => {
+  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...value, [evt.target.name]: evt.target.value });
   };
 
-  const regist = (evt) => {
+  const regist = (evt: React.FormEvent) => {
     evt.preventDefault();
     
     dispatch(

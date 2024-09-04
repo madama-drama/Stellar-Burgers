@@ -1,31 +1,33 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import {
   Input,
   Button,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Styles from "./forgot-password.module.css";
+import Styles from "./reset-password.module.css";
 import { useDispatch } from "react-redux";
-import { getSendEmailRequest } from "../services/auth2";
+import { getResetPasswordRequest } from "../services/auth2";
 
-export const ForgotPassword = () => {
-  let dispatch = useDispatch();
+import { AppDispatch } from "../services";
 
-  const [value, setValue] = React.useState("");
-  const inputRef = React.useRef(null);
 
+export const ResetPassword = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const onSend = (evt) => {
+  const inputRef = React.useRef(null);
+  const [code, setCode] = React.useState("");
+  const [value, setValue] = React.useState("");
+
+  const resetPass = (evt: React.FormEvent) => {
     evt.preventDefault();
     dispatch(
-      getSendEmailRequest({
-        email: value,
+      getResetPasswordRequest({
+        password: value,
         onSuccess: () => {
-          toast("Отправлен email", { type: "success" });
-          navigate("/reset-password");
+          navigate("/login");
         },
       })
     );
@@ -36,14 +38,24 @@ export const ForgotPassword = () => {
       <h1 className="text text_type_main-large mb-6 mt-20">
         Восстановление пароля
       </h1>
-      <form onSubmit={onSend} className={Styles.form}>
+
+      <form onSubmit={resetPass} className={Styles.form}>
         <div className="mb-6">
-          <Input
-            type="email"
-            placeholder={"E-mail"}
+          <PasswordInput
             onChange={(e) => setValue(e.target.value)}
             value={value}
-            name={"email"}
+            name={"password"}
+            extraClass="mb-2"
+          />
+        </div>
+
+        <div className="mb-6">
+          <Input
+            type={"text"}
+            placeholder={"Введите код из письма"}
+            onChange={(e) => setCode(e.target.value)}
+            value={code}
+            name={"name"}
             error={false}
             ref={inputRef}
             errorText={"Ошибка"}
@@ -51,9 +63,10 @@ export const ForgotPassword = () => {
             extraClass="ml-1"
           />
         </div>
+
         <div className="mb-20">
-          <Button htmlType="submit" disabled={!value}>
-            Восстановить
+          <Button htmlType="submit" type="primary" size="large">
+            Сохранить
           </Button>
         </div>
       </form>

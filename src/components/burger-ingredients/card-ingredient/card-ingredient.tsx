@@ -1,6 +1,5 @@
-import React from "react";
+import React, { FC } from "react";
 import { useDrag } from "react-dnd";
-import PropTypes from "prop-types";
 import {
   CurrencyIcon,
   Counter,
@@ -10,10 +9,17 @@ import { useSelector } from "react-redux";
 import CardIngredientStyle from "./card-ingredient.module.css";
 import { Link, useLocation } from "react-router-dom";
 
-export const CardIngredient = ({ ingredient }) => {
+import { AppStore } from "../../../services";
+import { IIngredient } from "../../../interfaces";
+
+interface ICardProps{
+  ingredient: IIngredient
+}
+
+export const CardIngredient: FC<ICardProps> = ({ ingredient }) => {
   const location = useLocation();
 
-  const cart = useSelector((store) => store.burgerConstructor.ingredients);
+  const cart = useSelector((store: AppStore) => store.burgerConstructor.ingredients);
 
   const arrayIngredientsId = cart.filter((ingr) => ingr._id === ingredient._id);
   const counter = arrayIngredientsId.length;
@@ -55,15 +61,8 @@ export const CardIngredient = ({ ingredient }) => {
           {ingredient.name}
         </h3>
       </div>
-      {/* {opened && (
-        <Modal title={"Детали ингредиента"} onClose={onClose}>
-          <IngredientDetails ingredient={ingredient} />
-        </Modal>
-      )} */}
     </Link>
   );
 };
 
-CardIngredient.propTypes = {
-  ingredient: PropTypes.object.isRequired,
-};
+

@@ -4,8 +4,10 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getLogOutRequest } from "../services/auth2";
 
+import {AppDispatch} from "../services"
+
 export const Orders = () => {
-const dispatch= useDispatch();
+const dispatch= useDispatch<AppDispatch>();
 
   const exit =()=>{
     dispatch(getLogOutRequest())
