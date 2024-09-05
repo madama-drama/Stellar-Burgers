@@ -3,17 +3,18 @@ import IngredientStyle from "./ingredient-details.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getIngredientsRequest } from "../../services/burger-ingredients";
+import { AppDispatch, AppStore } from "../../services";
 
 export const IngredientDetails = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const params = useParams();
 
   useEffect(() => {
     dispatch(getIngredientsRequest());
   }, [dispatch]);
 
-  const ingredients = useSelector((store) => store.ingredients.ingredients);
+  const ingredients = useSelector((store: AppStore) => store.ingredients.ingredients);
 
 
   if (ingredients.length === 0) {

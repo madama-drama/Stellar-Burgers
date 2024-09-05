@@ -9,36 +9,51 @@ import {
   updatingRequest,
 } from "./requests";
 import { checkResponse, handleRejected } from "./utils";
+import { IRegist } from "../pages/register";
+import { ILogin } from "../pages/login";
+import { ITokens, IUser } from "../interfaces";
 
 //РЕГИСТРАЦИЯ
 export const getRegistrRequest = createAsyncThunk(
   "auth/getRegistrRequest",
-  async ({ registerData, onSuccess }) => {
+  async ({
+    registerData,
+    onSuccess,
+  }: {
+    registerData: IRegist;
+    onSuccess: () => void;
+  }) => {
     const res = await registerRequest(registerData);
-    const data = await checkResponse(res);
+    const data: ITokens & { user: IUser } = await checkResponse(res);
 
     window.localStorage.setItem("access", data.accessToken);
     window.localStorage.setItem("refresh", data.refreshToken);
 
     onSuccess();
 
-    return data;
+    return data.user;
   }
 );
 
 //ВХОД
 export const getLogInRequest = createAsyncThunk(
   "auth/getLogInRequest",
-  async ({ loginData, onSuccess }) => {
+  async ({
+    loginData,
+    onSuccess,
+  }: {
+    loginData: ILogin;
+    onSuccess: () => void;
+  }) => {
     const res = await loginRequest(loginData);
-    const data = await checkResponse(res);
+    const data: ITokens & { user: IUser } = await checkResponse(res);
 
     window.localStorage.setItem("access", data.accessToken);
     window.localStorage.setItem("refresh", data.refreshToken);
 
     onSuccess();
 
-    return data;
+    return data.user;
   }
 );
 
@@ -73,10 +88,10 @@ export const getLogOutRequest = createAsyncThunk(
 //ЗАПРОС ПОЧТЫ
 export const getSendEmailRequest = createAsyncThunk(
   "auth/getSendEmailRequest",
-  async ({ email, onSuccess }) => {
-    const res = await emailRequest({ email });
+  async ({ email, onSuccess }: { email: string; onSuccess: () => void }) => {
+    const res = await emailRequest(email);
 
-    const data = await checkResponse(res);
+    const data: ITokens & IUser = await checkResponse(res);
 
     onSuccess();
 
@@ -87,7 +102,13 @@ export const getSendEmailRequest = createAsyncThunk(
 //ВОССТАНОВЛЕНИЕ ПАРОЛЯ
 export const getResetPasswordRequest = createAsyncThunk(
   "auth/getResetPasswordRequest",
-  async ({ password, onSuccess }) => {
+  async ({
+    password,
+    onSuccess,
+  }: {
+    password: string;
+    onSuccess: () => void;
+  }) => {
     const res = await resetPasswordRequest(password);
 
     const data = await checkResponse(res);
@@ -101,20 +122,25 @@ export const getResetPasswordRequest = createAsyncThunk(
 //ИЗМЕНЕНИЕ ДАННЫХ
 export const getUpdateDataRequest = createAsyncThunk(
   "auth/getUpdateDataRequest",
-  async (update) => {
-    const res = await updatingRequest(update);
+  async ({ value, password }: { value: IUser; password: string }) => {
+    const res = await updatingRequest({ value, password });
 
     return checkResponse(res);
   }
 );
+
+export interface IState {
+  load: boolean;
+  user: IUser | null;
+}
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     load: true,
     user: null,
-  },
-  reducer: {},
+  } as IState,
+  reducers: {},
   extraReducers: (builder) => {
     //РЕГИСТРАЦИЯ
     builder.addCase(getRegistrRequest.fulfilled, (state, action) => {
@@ -143,7 +169,6 @@ const authSlice = createSlice({
     builder.addCase(getLogOutRequest.fulfilled, (state) => {
       state.load = false;
       state.user = null;
-
     });
     builder.addCase(getLogOutRequest.rejected, handleRejected);
 

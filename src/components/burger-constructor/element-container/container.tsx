@@ -1,43 +1,55 @@
-  import React, { useRef } from "react";
+import React, { FC, useRef } from "react";
 import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 
 import { actions } from "../../../services/burger-constructor";
 import ContainerStyle from "./container.module.css";
+import { AppDispatch } from "../../../services";
+import { IIngredient } from "../../../interfaces";
 
-export const ElementContainer = ({ ingredient, order }) => {
-  const dispatch = useDispatch();
+interface IContainerProps {
+  ingredient: IIngredient;
+  order: number;
+}
+export const ElementContainer: FC<IContainerProps> = ({
+  ingredient,
+  order,
+}) => {
+  const dispatch = useDispatch<AppDispatch>();
 
   const [, drag] = useDrag({
     type: "cart-ingredient",
     item: () => ({ id: ingredient.id, order }),
   });
 
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
     accept: "cart-ingredient",
-    hover(item, monitor) {
+    hover(item: { id: string; order: number }, monitor) {
       const fromOrder = item.order;
       const toOrder = order;
 
-      if (fromOrder === toOrder) {
+      if (fromOrder === toOrder && !ref.current) {
         return;
       }
 
-      const cardRect = ref.current?.getBoundingClientRect();
+      const cardRect = ref.current!.getBoundingClientRect();
       const cardHalfHeight = cardRect.height / 2;
 
       const mouseCoords = monitor.getClientOffset();
 
+      if (!mouseCoords) {
+        return;
+      }
+
       const yFromCardTop = mouseCoords.y - cardRect.top;
-    
-      if (fromOrder < toOrder && yFromCardTop < cardHalfHeight) {  //???
+
+      if (fromOrder < toOrder && yFromCardTop < cardHalfHeight) {
         return;
       }
 
@@ -70,9 +82,4 @@ export const ElementContainer = ({ ingredient, order }) => {
       />
     </div>
   );
-};
-
-ElementContainer.propTypes = {
-  ingredient: PropTypes.object.isRequired,
-  order: PropTypes.number.isRequired,
 };

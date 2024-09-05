@@ -6,27 +6,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../services/burger-constructor";
 import { ElementContainer } from "../element-container/container";
 import ShopingCartStyle from "./shoping-cart.module.css";
+import { AppStore, AppDispatch } from "../../../services";
 
 export const ShopingCart = () => {
-  const ingredients = useSelector((store) => store.ingredients.ingredients);
-  const cart = useSelector((store) => store.burgerConstructor.ingredients);
+  const ingredients = useSelector(
+    (store: AppStore) => store.ingredients.ingredients
+  );
+  const cart = useSelector(
+    (store: AppStore) => store.burgerConstructor.ingredients
+  );
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-
-
-  // добавляем начальную булку
-  // useEffect(() => {
-
-  // const firstBun = ingredients.find((i) => i.type === "bun");
-
-  // dispatch(actions.add(firstBun));
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [ingredients, dispatch]);
-
-  const handleAdd = ({ id }) => {
-    dispatch(actions.add(ingredients.find((ingr) => ingr._id === id)));
+  const handleAdd = ({ id }: { id: string }) => {
+    //ингредиенты перетаскиваются из готового списка, потому id всегда будет
+    dispatch(actions.add(ingredients.find((ingr) => ingr._id === id)!));
   };
 
   const [, dropTargetRef] = useDrop({

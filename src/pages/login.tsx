@@ -11,19 +11,26 @@ import {
 import { useDispatch } from "react-redux";
 import { getLogInRequest } from "../services/auth2";
 
+import {AppDispatch } from "../services";
+
+export interface ILogin{
+  email: string;
+  password: string;
+}
+
 export const LoginPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const inputRef = React.useRef(null);
 
-  const [value, setValue] = useState({ email: "", password: "" });
+  const [value, setValue] =useState<ILogin>({ email: "", password: "" });
 
-  const onChange = (evt) => {
+  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...value, [evt.target.name]: evt.target.value });
   };
 
-  const logIn = (evt) => {
+  const logIn = (evt: React.FormEvent) => {
     evt.preventDefault();
     dispatch(
       getLogInRequest({

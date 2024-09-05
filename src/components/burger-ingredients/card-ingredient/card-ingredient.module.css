@@ -19,3 +19,7 @@
   .underline{
     text-decoration: none;
   }
+
+  .block{
+    width: 272px;
+  }

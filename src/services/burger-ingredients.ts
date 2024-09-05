@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { requestIngredients } from "./requests";
+import { IIngredient } from "../interfaces";
 
 export const getIngredientsRequest = createAsyncThunk(
   "burgerIngredients/getIngredientsRequest",
@@ -10,22 +11,27 @@ export const getIngredientsRequest = createAsyncThunk(
   }
 );
 
+interface IState {
+  ingredients: IIngredient[];
+}
+
+const initialState: IState = {
+  ingredients: [],
+};
+
 const ingredientSlice = createSlice({
   name: "burgerIngredients",
-  initialState: {
-    ingredients: [],
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getIngredientsRequest.fulfilled, (state, action) => {
       state.ingredients = action.payload;
     });
-    builder.addCase(getIngredientsRequest.rejected, (e) => {
-      console.error(e);
-      return [];
-    });
 
-    
+    builder.addCase(getIngredientsRequest.rejected, (state, e) => {
+      console.error(e.error.message);
+      state.ingredients = [];
+    });
   },
 });
 

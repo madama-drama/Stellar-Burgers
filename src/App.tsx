@@ -1,9 +1,4 @@
-import {
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,8 +19,10 @@ import { getAuthorizationRequest } from "./services/auth2";
 import { IngredientDetails } from "./components/ingredient-details/ingredient-details";
 import { Modal } from "./components/modal/modal";
 
+import { AppDispatch } from "./services";
+
 export const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;

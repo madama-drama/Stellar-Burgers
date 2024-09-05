@@ -10,40 +10,47 @@ import Styles from "./profile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getLogOutRequest, getUpdateDataRequest } from "../services/auth2";
 
+import { AppStore, AppDispatch } from "../services";
+
 export const Profile = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const inputRef = React.useRef(null);
 
-  const initial = useSelector((store) => store.auth.user);
+  // user не может быть null, поскольку в этом случае на страницу /profile нельзя попасть 
+  const initial = useSelector((store: AppStore) => store.auth.user!);
 
-  const [value, setValue] = useState(initial.user);
+  const [value, setValue] = useState(initial);
+  const [password, setPassword] = useState("");
 
   const [smtChanged, setSmtChanged] = React.useState(false);
 
-  const onChange = (evt) => {
+  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setSmtChanged(true);
     setValue({ ...value, [evt.target.name]: evt.target.value });
   };
 
-  const onSave = (e) => {
-    e.preventDefault()
+  const changePass = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    setSmtChanged(true);
+    setPassword(evt.target.value);
+  };
 
-    dispatch(getUpdateDataRequest(value));
+  const onSave = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    dispatch(getUpdateDataRequest({ value, password }));
     setSmtChanged(false);
   };
 
-  const onCancel = (e) => {
-    e.preventDefault()
+  const onCancel = (e: React.FormEvent) => {
+    e.preventDefault();
 
-    setValue(initial.user);
+    setValue(initial);
     setSmtChanged(false);
   };
 
   const exit = () => {
     dispatch(getLogOutRequest());
   };
-
-
 
   return (
     <div className={Styles.container}>
@@ -111,8 +118,8 @@ export const Profile = () => {
         </div>
         <div>
           <PasswordInput
-            onChange={onChange}
-            value={value.password}
+            onChange={changePass}
+            value={password}
             name={"password"}
             icon="EditIcon"
           />
@@ -129,9 +136,7 @@ export const Profile = () => {
               Отмена
             </Button>
 
-            <Button htmlType="submit">
-              Сохранить
-            </Button>
+            <Button htmlType="submit">Сохранить</Button>
           </div>
         ) : null}
       </form>
