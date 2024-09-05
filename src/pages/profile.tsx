@@ -20,7 +20,7 @@ export const Profile = () => {
   const initial = useSelector((store: AppStore) => store.auth.user!);
 
   const [value, setValue] = useState(initial);
-  const [password, setPassword] = useState<string>("");
+  const [password, setPassword] = useState("");
 
   const [smtChanged, setSmtChanged] = React.useState(false);
 

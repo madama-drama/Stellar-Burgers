@@ -16,8 +16,8 @@ import { AppDispatch } from "../services";
 export const ForgotPassword = () => {
   let dispatch = useDispatch<AppDispatch>();
 
-  const [value, setValue] = useState<string>("");
-  const inputRef = React.useRef(null);
+  const [value, setValue] = useState("");
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
 
   const navigate = useNavigate();
 
