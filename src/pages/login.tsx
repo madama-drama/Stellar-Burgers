@@ -8,10 +8,9 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
 import { getLogInRequest } from "../services/auth2";
 
-import {AppDispatch } from "../services";
+import {AppDispatch, useDispatch } from "../services";
 
 export interface ILogin{
   email: string;

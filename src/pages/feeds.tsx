@@ -14,25 +14,24 @@ export const LIVE_LIST_SERVER_URL =
   "wss://norma.nomoreparties.space/orders/all";
 
 export const Feeds = () => {
-  const dispatchOrder = useDispatch();
   const config = useSelector(getLiveData);
   const status = useSelector(getWebsocketStatus);
-  const dispatchAllIngr = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
 
   React.useEffect(() => {
-    dispatchAllIngr(getIngredientsRequest());
-  }, [dispatchAllIngr]);
+    dispatch(getIngredientsRequest());
+  }, [dispatch]);
 
   console.log(status);
 
   useEffect(() => {
-    dispatchOrder(wsConnect(LIVE_LIST_SERVER_URL));
+    dispatch(wsConnect(LIVE_LIST_SERVER_URL));
 
     return () => {
-      dispatchOrder(wsDisconnect());
+      dispatch(wsDisconnect());
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatchOrder]);
+  }, [dispatch]);
 
   const orderArray = config?.orders.map((value) => (
     <OrderCard

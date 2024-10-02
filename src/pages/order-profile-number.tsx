@@ -10,10 +10,11 @@ import {
   wsConnectProfile,
   wsDisconnectProfile,
 } from "../services/ws/list-order-profile/actions";
-import { PROFILE_LIVE_LIST_SERVER_URL } from "./orders-history";
-import { useOrderByNumber } from "../functions";
+import { getWsOrdersUrlWithToken, useOrderByNumber } from "../functions";
 
 export const OrderProfileNumber = () => {
+const PROFILE_LIVE_LIST_SERVER_URL = getWsOrdersUrlWithToken()
+
   const dispatch = useDispatch<AppDispatch>();
   const config = useSelector(getLiveDataProfile);
   const status = useSelector(getWebsocketStatusProfile);

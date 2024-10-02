@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorStyle from "./burger-constructor.module.css";
 import { OrderDetails } from "../order-details/order-details";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "../../services";
 import { postOrderRequest } from "../../services/order";
 import { useNavigate } from "react-router-dom";
 

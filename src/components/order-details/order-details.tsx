@@ -2,8 +2,7 @@ import React, { FC } from "react";
 import { Modal } from "../modal/modal";
 import OrderStyle from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../services";
+import { AppStore, useSelector } from "../../services";
 
 interface IOrderProps{
   onClose: ()=>void
@@ -11,6 +10,7 @@ interface IOrderProps{
 
 export const OrderDetails: FC<IOrderProps> = ({onClose}) => {
   const orderNumber = useSelector((store: AppStore)=> store.order.order.number);
+  
   return (
     <Modal onClose={onClose}>
       <div className={OrderStyle.orderBlock}>

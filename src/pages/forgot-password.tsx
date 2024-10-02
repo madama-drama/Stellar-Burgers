@@ -7,9 +7,8 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Styles from "./forgot-password.module.css";
-import { useDispatch } from "react-redux";
 import { getSendEmailRequest } from "../services/auth2";
-import { AppDispatch } from "../services";
+import { AppDispatch, useDispatch } from "../services";
 
 
 

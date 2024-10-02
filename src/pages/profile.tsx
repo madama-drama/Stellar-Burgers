@@ -7,10 +7,9 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Styles from "./profile.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { getLogOutRequest, getUpdateDataRequest } from "../services/auth2";
 
-import { AppStore, AppDispatch } from "../services";
+import { AppStore, AppDispatch, useDispatch, useSelector } from "../services";
 
 export const Profile = () => {
   const dispatch = useDispatch<AppDispatch>();

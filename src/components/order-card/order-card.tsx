@@ -1,14 +1,15 @@
 import React, { FC } from "react";
+import cx from "classnames";
 import Styles from "./order-card.module.css";
 import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { AppStore } from "../../services";
+import { AppStore, useSelector } from "../../services";
 import { MiniPhotos } from "./mini-photos";
 import { getUniqueIngredients, ingredientsSum } from "../../functions";
+import { IIngredient } from "../../types/interfaces";
 
 interface IOrderCard {
   orderNum: number;
@@ -18,6 +19,12 @@ interface IOrderCard {
   url: string;
   orderStatus?: string;
 }
+
+const statusToText: Record<string, string> = {
+  done: "Выполнен",
+  pending: "Готовится",
+  created: "Создан",
+};
 
 export const OrderCard: FC<IOrderCard> = ({
   url,
@@ -32,9 +39,9 @@ export const OrderCard: FC<IOrderCard> = ({
     (store: AppStore) => store.ingredients.ingredients
   );
 
-  const orderIngredient = ingredients.map(
-    (value) => allIngredients.find((v) => value === v._id)!
-  );
+  const orderIngredient = ingredients
+    .map((value) => allIngredients.find((v) => value === v._id))
+    .filter((value): value is IIngredient => Boolean(value));
 
   if (!orderIngredient) {
     return null;
@@ -73,18 +80,19 @@ export const OrderCard: FC<IOrderCard> = ({
 
         <div className={Styles.nameBlock}>
           <h1 className={`text text_type_main-medium mt-6 `}>{name}</h1>
-        </div>
 
-        {orderStatus &&
-          ((orderStatus === "done" && (
-            <h2 className={`text text_type_main-small ${Styles.done}`}>Выполнен</h2>
-          )) ||
-            (orderStatus === "pending" && (
-              <h2 className={`text text_type_main-small`}>Готовится</h2>
-            )) ||
-            orderStatus === "created" || (
-              <h2 className={`text text_type_main-small`}>Создан</h2>
-            ))}
+          {orderStatus && (
+            <h2
+              className={cx(
+                "text",
+                "text_type_main-small",
+                orderStatus === "done" && Styles.done
+              )}
+            >
+              {statusToText[orderStatus]}
+            </h2>
+          )}
+        </div>
 
         <div className={Styles.priceAndPhotos}>
           <div className={Styles.photosBlock}> {miniPhotos}</div>

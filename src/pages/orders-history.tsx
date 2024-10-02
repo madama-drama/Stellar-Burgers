@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import Styles from "./orders-history.module.css";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { getLogOutRequest } from "../services/auth2";
 
-import { AppDispatch, useSelector } from "../services";
+import { AppDispatch, useDispatch, useSelector } from "../services";
 import { OrderCard } from "../components/order-card/order-card";
 import {
   getLiveDataProfile,
@@ -15,12 +14,13 @@ import {
   wsConnectProfile,
   wsDisconnectProfile,
 } from "../services/ws/list-order-profile/actions";
+import { getWsOrdersUrlWithToken } from "../functions";
 
-const token = window.localStorage.getItem("access")?.slice(7);
-const wsUrl = "wss://norma.nomoreparties.space/orders";
-export const PROFILE_LIVE_LIST_SERVER_URL = `${wsUrl}?token=${token}`;
+
 
 export const OrdersHistory = () => {
+  const PROFILE_LIVE_LIST_SERVER_URL = getWsOrdersUrlWithToken();
+
   const dispatch = useDispatch<AppDispatch>();
 
   const exit = () => {

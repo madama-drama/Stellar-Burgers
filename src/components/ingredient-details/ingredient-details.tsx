@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import IngredientStyle from "./ingredient-details.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getIngredientsRequest } from "../../services/burger-ingredients";
-import { AppDispatch, AppStore } from "../../services";
+import { AppDispatch, AppStore, useDispatch, useSelector } from "../../services";
 
 export const IngredientDetails = () => {
   const dispatch = useDispatch<AppDispatch>();

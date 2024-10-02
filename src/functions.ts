@@ -98,7 +98,7 @@ export const useOrderByNumber = (
 export const getUniqueIngredients = (ingredients: IIngredient[]) => {
   let temporyObject: Record<string, boolean> = {};
   let uniqueIngredients = [];
-  
+
   for (let i = 0; i < ingredients.length; i++) {
     if (temporyObject[ingredients[i]._id]) {
       continue;
@@ -108,4 +108,12 @@ export const getUniqueIngredients = (ingredients: IIngredient[]) => {
     uniqueIngredients.push(ingredients[i]);
   }
   return uniqueIngredients;
+};
+
+//url с токеном для заказов определенного пользователя
+export const getWsOrdersUrlWithToken = () => {
+  const token = window.localStorage.getItem("access")?.slice(7);
+  const wsUrl = "wss://norma.nomoreparties.space/orders";
+
+  return `${wsUrl}?token=${token}`;
 };
