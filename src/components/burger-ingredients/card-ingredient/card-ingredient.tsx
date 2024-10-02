@@ -10,7 +10,7 @@ import CardIngredientStyle from "./card-ingredient.module.css";
 import { Link, useLocation } from "react-router-dom";
 
 import { AppStore } from "../../../services";
-import { IIngredient } from "../../../interfaces";
+import { IIngredient } from "../../../types/interfaces";
 
 interface ICardProps{
   ingredient: IIngredient

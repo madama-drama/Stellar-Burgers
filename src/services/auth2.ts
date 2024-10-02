@@ -11,7 +11,7 @@ import {
 import { checkResponse, handleRejected } from "./utils";
 import { IRegist } from "../pages/register";
 import { ILogin } from "../pages/login";
-import { ITokens, IUser } from "../interfaces";
+import { ITokens, IUser } from "../types/interfaces";
 
 //РЕГИСТРАЦИЯ
 export const getRegistrRequest = createAsyncThunk(

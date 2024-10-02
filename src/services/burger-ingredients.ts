@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { requestIngredients } from "./requests";
-import { IIngredient } from "../interfaces";
+import { IIngredient } from "../types/interfaces";
 
 export const getIngredientsRequest = createAsyncThunk(
   "burgerIngredients/getIngredientsRequest",

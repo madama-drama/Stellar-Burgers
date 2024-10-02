@@ -1,8 +1,14 @@
+.container{
+    display: flex;
+    margin-left: 146px;
+    margin-top: 120px;
+    gap: 60px;
+}
+
 .leftBlock{
     display: flex;
     flex-direction: column;
-    margin-left: 146px;
-    margin-top: 120px;
+
     width: 320px;
 }
 
@@ -32,3 +38,15 @@
     color: rgba(133, 133, 173, 1);
 
 }
+
+.blockWithScroll {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    height: 520px;
+  
+    padding-right: 8px;
+    scrollbar-color: rgba(133, 133, 173, 1) rgba(47, 47, 55, 1);
+    scrollbar-width: thin;
+    overflow-y: scroll;
+  }

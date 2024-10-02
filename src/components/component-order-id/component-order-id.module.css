@@ -1,0 +1,41 @@
+.block {
+  width: 640px;
+  height: 620px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.colored {
+  color: rgba(0, 204, 204, 1);
+}
+
+.center {
+  text-align: center;
+  font-size: 28px;
+}
+
+.structure {
+  padding-right: 20px;
+  height: 320px;
+  width: 608px;
+  margin-bottom: 40px;
+
+  scrollbar-color: rgba(133, 133, 173, 1) rgba(47, 47, 55, 1);
+  scrollbar-width: thin;
+  overflow-y: scroll;
+}
+
+
+
+
+
+.priceAndDate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sum {
+  display: flex;
+}

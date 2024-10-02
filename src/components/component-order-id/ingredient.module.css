@@ -1,0 +1,17 @@
+.structureId {
+    display: flex;
+    align-items: center;
+    height: 90px;
+  }
+
+
+
+  .price {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .noMargins{
+    margin: 0;
+  }

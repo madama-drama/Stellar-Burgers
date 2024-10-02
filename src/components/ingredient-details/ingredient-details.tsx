@@ -6,7 +6,6 @@ import { getIngredientsRequest } from "../../services/burger-ingredients";
 import { AppDispatch, AppStore } from "../../services";
 
 export const IngredientDetails = () => {
-
   const dispatch = useDispatch<AppDispatch>();
   const params = useParams();
 
@@ -14,14 +13,17 @@ export const IngredientDetails = () => {
     dispatch(getIngredientsRequest());
   }, [dispatch]);
 
-  const ingredients = useSelector((store: AppStore) => store.ingredients.ingredients);
-
+  const ingredients = useSelector(
+    (store: AppStore) => store.ingredients.ingredients
+  );
 
   if (ingredients.length === 0) {
     return null;
   }
 
-  const ingredient = ingredients.find((value) => value._id === params.ingredientId);
+  const ingredient = ingredients.find(
+    (value) => value._id === params.ingredientId
+  );
 
   if (!ingredient) {
     return null;
@@ -78,4 +80,3 @@ export const IngredientDetails = () => {
     </div>
   );
 };
-

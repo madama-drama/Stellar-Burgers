@@ -1,0 +1,23 @@
+.page{
+    width: 1280px;
+    margin: auto;
+    gap: 60px;
+}
+
+.orderContainer{
+    display: flex;
+    justify-content: space-around;
+    gap: 60px;
+}
+
+.blockWithScroll {
+  display: flex;
+  flex-direction: column;
+  width: 580px;
+  height: 820px;
+
+  padding-right: 8px;
+  scrollbar-color: rgba(133, 133, 173, 1) rgba(47, 47, 55, 1);
+  scrollbar-width: thin;
+  overflow-y: scroll;
+}

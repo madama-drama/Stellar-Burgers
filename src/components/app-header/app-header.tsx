@@ -34,7 +34,7 @@ export const AppHeader = () => {
         </div>
 
         <div className={headerStyle.navigatorBlock}>
-          <NavLink to="/list-order">
+          <NavLink to="/feed">
             {({ isActive }) =>
               isActive ? (
                 <ListIcon type="primary" />
@@ -45,7 +45,7 @@ export const AppHeader = () => {
           </NavLink>
 
           <NavLink
-            to="/list-order"
+            to="/feed"
             className={({ isActive }) =>
               isActive ? headerStyle.active : headerStyle.passive
             }
