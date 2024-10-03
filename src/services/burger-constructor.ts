@@ -1,5 +1,5 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
-import { IIngredient } from "../interfaces";
+import { IIngredient } from "../types/interfaces";
 
 interface IState {
   ingredients: IIngredient[];

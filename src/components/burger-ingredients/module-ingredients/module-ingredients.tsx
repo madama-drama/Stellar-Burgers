@@ -1,9 +1,8 @@
 import React, { FC } from "react";
 import { CardIngredient } from "../card-ingredient/card-ingredient";
 import ModuleIngredientsStyle from "./module-ingredients.module.css";
-import { useSelector } from "react-redux";
 
-import { AppStore } from "../../../services";
+import { AppStore, useSelector } from "../../../services";
 
 interface IModuleProps {
   type: "sauce" | "main" | "bun";

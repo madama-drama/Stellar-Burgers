@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
+import { useDispatch } from "./services";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,14 +12,17 @@ import {
   ForgotPassword,
   ResetPassword,
   Profile,
-  Orders,
+  OrdersHistory,
+  Feeds,
+  OrderNumber,
+  OrderProfileNumber,
 } from "./pages";
+
 import { ProtectedRoutElement } from "./components/protected-rout";
-import { useDispatch } from "react-redux";
-import { getAuthorizationRequest } from "./services/auth2";
 import { IngredientDetails } from "./components/ingredient-details/ingredient-details";
 import { Modal } from "./components/modal/modal";
 
+import { getAuthorizationRequest } from "./services/auth2";
 import { AppDispatch } from "./services";
 
 export const App = () => {
@@ -48,13 +52,19 @@ export const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/feed" element={<Feeds />} />
+        <Route path="/feed/:orderNumber" element={<OrderNumber />} />
         <Route
           path="/profile"
           element={<ProtectedRoutElement element={<Profile />} />}
         />
         <Route
           path="/profile/:orders"
-          element={<ProtectedRoutElement element={<Orders />} />}
+          element={<ProtectedRoutElement element={<OrdersHistory />} />}
+        />
+        <Route
+          path="/profile/orders/:orderNumber"
+          element={<ProtectedRoutElement element={<OrderProfileNumber />} />}
         />
       </Routes>
 
@@ -65,6 +75,23 @@ export const App = () => {
             element={
               <Modal title={"Детали ингредиента"} onClose={onClose}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:orderNumber"
+            element={
+              <Modal onClose={onClose}>
+                <OrderNumber />
+              </Modal>
+            }
+          />
+
+          <Route
+            path="/profile/orders/:orderNumber"
+            element={
+              <Modal onClose={onClose}>
+                <OrderProfileNumber />
               </Modal>
             }
           />

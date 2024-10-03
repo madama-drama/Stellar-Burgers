@@ -6,11 +6,12 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorStyle from "./burger-constructor.module.css";
 import { OrderDetails } from "../order-details/order-details";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "../../services";
 import { postOrderRequest } from "../../services/order";
 import { useNavigate } from "react-router-dom";
 
 import { AppStore, AppDispatch } from "../../services";
+import { ingredientsSum } from "../../functions";
 
 export const BurgerConstructor = () => {
   const navigate = useNavigate();
@@ -37,18 +38,7 @@ export const BurgerConstructor = () => {
     setOrder(false);
   };
 
-  const sum = useMemo(() => {
-    let sum = 0;
-    orderCart.forEach((ing) => {
-      if (ing.type === "bun") {
-        sum += ing.price * 2;
-      } else {
-        sum += ing.price;
-      }
-    });
-
-    return sum;
-  }, [orderCart]);
+  const sum = useMemo(() => ingredientsSum(orderCart), [orderCart]);
 
   return (
     <div>

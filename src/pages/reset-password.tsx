@@ -7,10 +7,9 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Styles from "./reset-password.module.css";
-import { useDispatch } from "react-redux";
 import { getResetPasswordRequest } from "../services/auth2";
 
-import { AppDispatch } from "../services";
+import { AppDispatch, useDispatch } from "../services";
 
 
 export const ResetPassword = () => {

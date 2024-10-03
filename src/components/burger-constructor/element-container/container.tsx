@@ -4,12 +4,11 @@ import {
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
 
 import { actions } from "../../../services/burger-constructor";
 import ContainerStyle from "./container.module.css";
-import { AppDispatch } from "../../../services";
-import { IIngredient } from "../../../interfaces";
+import { AppDispatch, useDispatch } from "../../../services";
+import { IIngredient } from "../../../types/interfaces";
 
 interface IContainerProps {
   ingredient: IIngredient;

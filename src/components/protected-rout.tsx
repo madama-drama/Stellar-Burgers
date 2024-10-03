@@ -1,7 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { AppStore } from "../services";
+import { AppStore, useSelector } from "../services";
 
 interface IProtectedProps {
   element: ReactNode;

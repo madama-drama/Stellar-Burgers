@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 
-import type { IIngredient } from "../interfaces";
+import type { IIngredient } from "../types/interfaces";
 import { requestsOrder } from "./requests";
 
 export const postOrderRequest = createAsyncThunk(

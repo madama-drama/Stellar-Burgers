@@ -1,4 +1,4 @@
-import type { IIngredient, IUser } from "../interfaces";
+import type { IIngredient, IUser } from "../types/interfaces";
 import { ILogin } from "../pages/login";
 import { IRegist } from "../pages/register";
 
@@ -21,6 +21,7 @@ export const requestsOrder = async (ingredientsIds: IIngredient["_id"][]) => {
     body: JSON.stringify({ ingredients: ingredientsIds }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
+      authorization: window.localStorage.getItem("access") || "",
     },
   });
 
@@ -31,6 +32,17 @@ export const requestsOrder = async (ingredientsIds: IIngredient["_id"][]) => {
 
   return Promise.reject(`Ошибка ${orderResponse.status}`);
 };
+
+//
+export const orderByNumberRequest = async(number: number)=>{
+
+  return await fetch(`${domain}/api/orders/${number}`,{
+    method: 'GET',
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    }
+  })
+}
 
 //
 

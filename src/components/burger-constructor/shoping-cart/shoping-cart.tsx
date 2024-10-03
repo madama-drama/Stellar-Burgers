@@ -1,12 +1,11 @@
 import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrop } from "react-dnd";
-import { useSelector, useDispatch } from "react-redux";
 
 import { actions } from "../../../services/burger-constructor";
 import { ElementContainer } from "../element-container/container";
 import ShopingCartStyle from "./shoping-cart.module.css";
-import { AppStore, AppDispatch } from "../../../services";
+import { AppStore, AppDispatch, useSelector, useDispatch } from "../../../services";
 
 export const ShopingCart = () => {
   const ingredients = useSelector(

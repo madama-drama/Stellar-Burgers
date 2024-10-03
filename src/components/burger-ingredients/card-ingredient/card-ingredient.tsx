@@ -4,13 +4,12 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
 
 import CardIngredientStyle from "./card-ingredient.module.css";
 import { Link, useLocation } from "react-router-dom";
 
-import { AppStore } from "../../../services";
-import { IIngredient } from "../../../interfaces";
+import { AppStore, useSelector } from "../../../services";
+import { IIngredient } from "../../../types/interfaces";
 
 interface ICardProps{
   ingredient: IIngredient

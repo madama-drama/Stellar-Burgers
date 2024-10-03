@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import IngredientStyle from "./ingredient-details.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getIngredientsRequest } from "../../services/burger-ingredients";
-import { AppDispatch, AppStore } from "../../services";
+import { AppDispatch, AppStore, useDispatch, useSelector } from "../../services";
 
 export const IngredientDetails = () => {
-
   const dispatch = useDispatch<AppDispatch>();
   const params = useParams();
 
@@ -14,14 +12,17 @@ export const IngredientDetails = () => {
     dispatch(getIngredientsRequest());
   }, [dispatch]);
 
-  const ingredients = useSelector((store: AppStore) => store.ingredients.ingredients);
-
+  const ingredients = useSelector(
+    (store: AppStore) => store.ingredients.ingredients
+  );
 
   if (ingredients.length === 0) {
     return null;
   }
 
-  const ingredient = ingredients.find((value) => value._id === params.ingredientId);
+  const ingredient = ingredients.find(
+    (value) => value._id === params.ingredientId
+  );
 
   if (!ingredient) {
     return null;
@@ -78,4 +79,3 @@ export const IngredientDetails = () => {
     </div>
   );
 };
-

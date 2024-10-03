@@ -1,0 +1,43 @@
+.block {
+  background-color: rgba(28, 28, 33, 1);
+  margin-bottom: 16px;
+  height: 214px;
+  border-radius: 30px;
+  padding: 24px;
+}
+
+.timeAndNumber {
+  display: flex;
+  justify-content: space-between;
+}
+
+.priceAndPhotos {
+  display: flex;
+  justify-content: space-between;
+  height: 64px;
+  margin-top: 24px;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  gap: 8px;
+}
+
+.linkBlock{
+  text-decoration: none;
+  color: rgba(242, 242, 243, 1)
+}
+
+.nameBlock{
+  height: 85px;
+  overflow: auto;
+}
+
+.photosBlock{
+  display:flex;
+}
+
+.done{
+  color: rgba(0, 204, 204, 1)
+}
