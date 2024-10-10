@@ -5,7 +5,7 @@ interface IState {
   ingredients: IIngredient[];
 }
 
-const initialState: IState = {
+export const initialState: IState = {
   ingredients: [],
 };
 

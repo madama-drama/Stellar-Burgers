@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { OrdersConfig, WebsocketStatus } from "../../../types/list-order";
 import { ListOrdersStore } from "../list-order/slice";
 
-const initialState: ListOrdersStore={
+export const initialState: ListOrdersStore={
     status: WebsocketStatus.OFFLINE,
     config: null,
     connectionError: null

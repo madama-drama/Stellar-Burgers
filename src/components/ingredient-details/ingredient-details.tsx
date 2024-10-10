@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import cx from 'classnames'
 import IngredientStyle from "./ingredient-details.module.css";
 import { useParams } from "react-router-dom";
 import { getIngredientsRequest } from "../../services/burger-ingredients";
@@ -29,7 +30,7 @@ export const IngredientDetails = () => {
   }
 
   return (
-    <div className={IngredientStyle.blockAboutFood}>
+    <div className={cx(IngredientStyle.blockAboutFood)} data-testid='ingredientDetails'>
       <img src={ingredient.image_large} alt={ingredient.name} />
       <h2 className="text text_type_main-medium">{ingredient.name}</h2>
       <ul className={IngredientStyle.foodEnergyList}>

@@ -15,7 +15,7 @@ interface IState {
   order: IOrder | null;
 }
 
-const initialState: IState = {
+export const initialState: IState = {
   order: null,
 };
 
