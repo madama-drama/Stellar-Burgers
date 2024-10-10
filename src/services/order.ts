@@ -5,7 +5,7 @@ import { requestsOrder } from "./requests";
 
 export const postOrderRequest = createAsyncThunk(
   "order/postOrderRequest",
-  async (ingredientIds: IIngredient['_id'][]) => {
+  async (ingredientIds: IIngredient["_id"][]) => {
     const result = await requestsOrder(ingredientIds);
 
     return result;
@@ -20,7 +20,7 @@ interface IState {
   success: boolean;
 }
 
-const initialState: IState = {
+export const initialState: IState = {
   name: " ",
   order: {
     number: 0,

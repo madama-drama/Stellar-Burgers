@@ -1,4 +1,5 @@
 import React, { FC, ReactNode } from "react";
+import cx from 'classnames'
 import ModalStyles from "./modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ReactDOM from "react-dom";
@@ -21,22 +22,22 @@ export const Modal: FC<IModalProps> = ({ title, children, onClose }) => {
       }
     };
 
-    window.addEventListener("keydown", closeOnEscape);
+    document.body.addEventListener("keydown", closeOnEscape);
 
     return () => {
-      window.removeEventListener("keydown", closeOnEscape);
+      document.body.removeEventListener("keydown", closeOnEscape);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return ReactDOM.createPortal(
     <ModalOverlay onClose={onClose}>
-      <section className={ModalStyles.windowSize}>
+      <section className={cx(ModalStyles.windowSize)} data-testid='modalCard'>
         <div className={ModalStyles.titleBlock}>
           <h1 className={`text text_type_main-large ${ModalStyles.titleCard}`}>
             {title}
           </h1>
-          <button className={ModalStyles.buttonClose} onClick={onClose}>
+          <button className={cx(ModalStyles.buttonClose)} onClick={onClose} data-testid='close-button'>
             <CloseIcon type="primary" />
           </button>
         </div>

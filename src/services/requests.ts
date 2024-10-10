@@ -2,7 +2,7 @@ import type { IIngredient, IUser } from "../types/interfaces";
 import { ILogin } from "../pages/login";
 import { IRegist } from "../pages/register";
 
-const domain = "https://norma.nomoreparties.space";
+export const domain = "https://norma.nomoreparties.space";
 
 export const requestIngredients = async () => {
   const ingredientResponse = await fetch(`${domain}/api/ingredients`);

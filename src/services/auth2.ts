@@ -132,20 +132,24 @@ export const getUpdateDataRequest = createAsyncThunk(
 export interface IState {
   load: boolean;
   user: IUser | null;
+  success: boolean
 }
+export const initialState: IState = {
+  load: true,
+  user: null,
+  success: false
+};
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    load: true,
-    user: null,
-  } as IState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     //РЕГИСТРАЦИЯ
     builder.addCase(getRegistrRequest.fulfilled, (state, action) => {
       state.load = false;
       state.user = action.payload;
+      state.success = true;
     });
     builder.addCase(getRegistrRequest.rejected, handleRejected);
 
@@ -153,6 +157,7 @@ const authSlice = createSlice({
     builder.addCase(getLogInRequest.fulfilled, (state, action) => {
       state.load = false;
       state.user = action.payload;
+      state.success = true;
     });
     builder.addCase(getLogInRequest.rejected, handleRejected);
 
@@ -160,6 +165,7 @@ const authSlice = createSlice({
     builder.addCase(getAuthorizationRequest.fulfilled, (state, action) => {
       state.load = false;
       state.user = action.payload;
+      state.success = true;
     });
     builder.addCase(getAuthorizationRequest.rejected, (state, action) =>
       handleRejected(state, action, { noToast: true })
@@ -169,18 +175,22 @@ const authSlice = createSlice({
     builder.addCase(getLogOutRequest.fulfilled, (state) => {
       state.load = false;
       state.user = null;
+      state.success = true;
+
     });
     builder.addCase(getLogOutRequest.rejected, handleRejected);
 
     //ЗАПРОС ПОЧТЫ
     builder.addCase(getSendEmailRequest.fulfilled, (state) => {
       state.load = false;
+      state.success = true;
     });
     builder.addCase(getSendEmailRequest.rejected, handleRejected);
 
     //ВОССТАНОВЛЕНИЕ ПАРОЛЯ
     builder.addCase(getResetPasswordRequest.fulfilled, (state) => {
       state.load = false;
+      state.success = true;
     });
     builder.addCase(getResetPasswordRequest.rejected, handleRejected);
 
@@ -189,6 +199,7 @@ const authSlice = createSlice({
       window.localStorage.getItem("refresh");
       state.load = false;
       state.user = action.payload;
+      state.success = true;
     });
     builder.addCase(getUpdateDataRequest.rejected, handleRejected);
   },
