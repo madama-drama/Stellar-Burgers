@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import cx from 'classnames'
 import { Modal } from "../modal/modal";
 import OrderStyle from "./order-details.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -13,8 +14,8 @@ export const OrderDetails: FC<IOrderProps> = ({onClose}) => {
   
   return (
     <Modal onClose={onClose}>
-      <div className={OrderStyle.orderBlock}>
-        <p className={`text text_type_digits-large mb-8 ${OrderStyle.shadowTitle}`}>
+      <div className={cx(OrderStyle.orderBlock)} data-testid='orderDetails'>
+        <p className={cx(`text text_type_digits-large mb-8 ${OrderStyle.shadowTitle}`)} data-testid='number'>
           {orderNumber}
         </p>
         <p className="text text_type_main-medium">идентификатор заказа</p>

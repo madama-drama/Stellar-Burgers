@@ -7,7 +7,7 @@ export type ListOrdersStore = {
   connectionError: string | null;
 };
 
-const initialState: ListOrdersStore = {
+export const initialState: ListOrdersStore = {
   status: WebsocketStatus.OFFLINE,
   config: null,
   connectionError: null,

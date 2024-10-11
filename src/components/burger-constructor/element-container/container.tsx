@@ -69,16 +69,16 @@ export const ElementContainer: FC<IContainerProps> = ({
   };
 
   return (
-    <div className={ContainerStyle.shiftPosition} ref={ref}>
+    <div className={ContainerStyle.shiftPosition} ref={ref} data-testid='dragElement-in-container'>
       <div className={ContainerStyle.positionSize}>
         {<DragIcon type="primary" />}
       </div>
-      <ConstructorElement
-        thumbnail={ingredient.image_mobile}
-        text={ingredient.name}
-        price={ingredient.price}
-        handleClose={handleDelete}
-      />
+        <ConstructorElement
+          thumbnail={ingredient.image_mobile}
+          text={ingredient.name}
+          price={ingredient.price}
+          handleClose={handleDelete}
+        />
     </div>
   );
 };

@@ -45,7 +45,7 @@ export const LoginPage = () => {
     <div className={Styles.container}>
       <h1 className="text text_type_main-large mb-6 mt-20">Вход</h1>
       <form onSubmit={logIn} className={Styles.form}>
-        <div className="mb-6">
+        <div className="mb-6" data-testid='email_input'>
           <Input
             type={"email"}
             placeholder={"E-mail"}
@@ -60,7 +60,7 @@ export const LoginPage = () => {
           />
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6" data-testid='password_input'>
           <PasswordInput
             onChange={onChange}
             value={value.password}

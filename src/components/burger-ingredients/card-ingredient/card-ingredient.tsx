@@ -1,4 +1,6 @@
 import React, { FC } from "react";
+import cx from "classnames";
+
 import { useDrag } from "react-dnd";
 import {
   CurrencyIcon,
@@ -11,14 +13,16 @@ import { Link, useLocation } from "react-router-dom";
 import { AppStore, useSelector } from "../../../services";
 import { IIngredient } from "../../../types/interfaces";
 
-interface ICardProps{
-  ingredient: IIngredient
+interface ICardProps {
+  ingredient: IIngredient;
 }
 
 export const CardIngredient: FC<ICardProps> = ({ ingredient }) => {
   const location = useLocation();
 
-  const cart = useSelector((store: AppStore) => store.burgerConstructor.ingredients);
+  const cart = useSelector(
+    (store: AppStore) => store.burgerConstructor.ingredients
+  );
 
   const arrayIngredientsId = cart.filter((ingr) => ingr._id === ingredient._id);
   const counter = arrayIngredientsId.length;
@@ -30,17 +34,16 @@ export const CardIngredient: FC<ICardProps> = ({ ingredient }) => {
 
   const ingredientId = ingredient._id;
 
-
+  //`${CardIngredientStyle.underline} ${CardIngredientStyle.block}`
   return (
-    <Link className={`${CardIngredientStyle.underline} ${CardIngredientStyle.block}`}
+    <Link
+      className={cx(CardIngredientStyle.underline, CardIngredientStyle.block)}
+      data-testid="cardIngredient"
       key={ingredientId}
       to={`/ingredients/${ingredientId}`}
       state={{ background: location }}
     >
-      <div
-        ref={dragRef}
-        className={CardIngredientStyle.card}
-      >
+      <div ref={dragRef} className={CardIngredientStyle.card}>
         {counter > 0 && (
           <div>
             <Counter
@@ -56,12 +59,12 @@ export const CardIngredient: FC<ICardProps> = ({ ingredient }) => {
           {ingredient.price}
           <CurrencyIcon type="primary" />
         </p>
-        <h3 className={`${CardIngredientStyle.name} text text_type_main-default mt-2`}>
+        <h3
+          className={`${CardIngredientStyle.name} text text_type_main-default mt-2`}
+        >
           {ingredient.name}
         </h3>
       </div>
     </Link>
   );
 };
-
-

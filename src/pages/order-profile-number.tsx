@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { ComponentOrderId } from "../components/component-order-id/component-order-id";
-import { AppDispatch,  useDispatch, useSelector } from "../services";
+import { AppDispatch, useDispatch, useSelector } from "../services";
 import {
   getLiveDataProfile,
   getWebsocketStatusProfile,
@@ -13,7 +13,7 @@ import {
 import { getWsOrdersUrlWithToken, useOrderByNumber } from "../functions";
 
 export const OrderProfileNumber = () => {
-const PROFILE_LIVE_LIST_SERVER_URL = getWsOrdersUrlWithToken()
+  const PROFILE_LIVE_LIST_SERVER_URL = getWsOrdersUrlWithToken();
 
   const dispatch = useDispatch<AppDispatch>();
   const config = useSelector(getLiveDataProfile);
