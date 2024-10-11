@@ -1,6 +1,6 @@
 describe("modal", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000");
+    cy.visit("");
     cy.get("[data-testid=cardIngredient]").first().click();
     cy.get("[data-testid=modalCard]").should("exist");
   });
@@ -16,5 +16,4 @@ describe("modal", () => {
 
     cy.get("[data-testid=modalCard]").should("not.exist");
   });
-
 });

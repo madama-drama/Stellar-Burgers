@@ -1,8 +1,8 @@
-import ingredients from "../fixtures/ingredient.json";
+import ingredients from "../fixtures/ingredients.json";
 
 describe("modal-ingredient", () => {
-  before(() => {
-    cy.visit("http://localhost:3000");
+  beforeEach(() => {
+    cy.visit("");
   });
 
   it("should open modal card about ingredients", () => {

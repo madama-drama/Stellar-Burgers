@@ -1,8 +1,8 @@
-import order from '../fixtures/order.json'
+import order from "../fixtures/order.json";
 
 describe("modal-order", () => {
   before(() => {
-    cy.visit("http://localhost:3000");
+    cy.visit("");
   });
 
   it("should open modal card about order", () => {
@@ -15,6 +15,6 @@ describe("modal-order", () => {
     cy.get("[data-testid=modalCard]").should("exist");
     cy.get("[data-testid=orderDetails]").should("be.visible");
 
-    cy.get("[data-testid=number]").should('have.text', order.order.number)
+    cy.get("[data-testid=number]").should("have.text", order.order.number);
   });
 });

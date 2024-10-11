@@ -39,18 +39,23 @@
 Cypress.Commands.add("auth", (email, password) => {
   cy.intercept("POST", `https://norma.nomoreparties.space/api/auth/login`, {
     fixture: "signin",
-  });
+  }).as('postLogin');
 
   window.localStorage.setItem(
     "refreshToken",
     JSON.stringify("test-refreshToken")
   );
 
-  cy.visit("http://localhost:3000/login");
-  cy.get('[name="email"]').type(email);
+  cy.visit("login");
+  cy.get('[data-testid=email_input]').type(email);
   cy.get('[name="password"]').type(password);
 
   cy.get("button").contains("Войти").click();
+
+  cy.wait("@postLogin").its("request.body").should("deep.equal", {
+    email,
+    password,
+  });
 });
 
 Cypress.Commands.add("drag_n_drop", (index) => {
