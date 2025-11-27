@@ -5,7 +5,12 @@ import { useDrop } from "react-dnd";
 import { actions } from "../../../services/burger-constructor";
 import { ElementContainer } from "../element-container/container";
 import ShopingCartStyle from "./shoping-cart.module.css";
-import { AppStore, AppDispatch, useSelector, useDispatch } from "../../../services";
+import {
+  AppStore,
+  AppDispatch,
+  useSelector,
+  useDispatch,
+} from "../../../services";
 
 export const ShopingCart = () => {
   const ingredients = useSelector(
@@ -34,7 +39,7 @@ export const ShopingCart = () => {
   });
 
   return (
-    <div ref={dropTargetRef}>
+    <div ref={dropTargetRef} data-testid="drop-container">
       {!cart.length ? (
         <div className={ShopingCartStyle.blockText}>
           <p className="text text_type_main-medium text_color_inactive">
@@ -43,7 +48,7 @@ export const ShopingCart = () => {
         </div>
       ) : (
         <>
-          <div className="pl-7">
+          <div className="pl-7" data-testid="bun-in-container">
             <ConstructorElement
               isLocked={true}
               type="top"
@@ -55,7 +60,7 @@ export const ShopingCart = () => {
 
           <div className={ShopingCartStyle.scrollCart}>{positionList}</div>
 
-          <div className="pl-7">
+          <div className="pl-7" data-testid="bun-in-container">
             <ConstructorElement
               isLocked={true}
               type="bottom"

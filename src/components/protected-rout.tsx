@@ -1,18 +1,20 @@
-import React, { FC, ReactNode } from "react";
+import React  from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { AppStore, useSelector } from "../services";
 
 interface IProtectedProps {
-  element: ReactNode;
+  element: React.ReactElement;
 }
 
-export const ProtectedRoutElement: FC<IProtectedProps> = ({ element }) => {
+export const ProtectedRoutElement = ({ element }: IProtectedProps) => {
   const location = useLocation();
   const { user, load } = useSelector((store: AppStore) => store.auth);
 
   if (load) {
     return null;
   }
+
+  console.log(element)
 
   return user ? (
     element
